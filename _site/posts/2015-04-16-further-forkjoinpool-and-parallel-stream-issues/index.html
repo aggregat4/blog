@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>But wait, there&#39;s more! (to consider about the ForkJoinPool and parallel streams)</title>    
+    <!-- <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">  -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Merriweather&display=swap" rel="stylesheet">  -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Merriweather&family=Roboto+Slab&display=swap" rel="stylesheet"> 
+    <style>
+/* From monica.css */
+* {box-sizing: border-box}
+[hidden] {display: none !important}
+[disabled] {pointer-events:none; opacity: 0.3}
+.horizontal {display: flex; flex-direction: row; justify-content: space-between}
+.vertical {display: flex; flex-direction: column}
+.center {justify-content: center; align-items: center}
+.flex {flex: 1}
+html {
+  --spacing-xs: 8px;
+  --spacing: 24px;
+  --spacing-s: 12px;
+  --spacing-m: 36px;
+  /* Color scheme 324, page 233 */
+  --pompeian-red: rgb(162, 46, 55);
+  --olympic-blue: #247291;
+  --aconite-violet: #85608e;
+  --neutral-gray: #B5D1CC;
+}
+
+/* Custom styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  /* font-family: 'Merriweather', serif; */
+  font-family: 'Roboto Slab', serif;
+}
+pre, code {
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 3px;
+}
+header, footer {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+main {
+  max-width: 75ch;
+  margin: auto;
+  padding: 0 var(--spacing) var(--spacing) var(--spacing);
+}
+footer {
+  font-size: 21px;
+  margin-bottom: var(--spacing);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif;
+  /* font-family: 'Open Sans', sans-serif; */
+}
+
+nav {
+  margin: auto;
+  /* background-color: #e54040; */
+  /* color: white; */
+  padding: var(--spacing-s);
+  /* text-shadow: rgba(100, 100, 100, 0.25) 1px 1px 1px; */
+  /* border-bottom: 1px dashed #333; */
+  /* border-right: none; */  
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  margin: var(--spacing);
+  background-color: var(--pompeian-red);
+  color: white;
+  border-radius: 3px;
+
+}
+nav ol {
+  margin: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav ol li {
+  margin: 0 var(--spacing-s);
+}
+
+nav ol li, main ol li {
+  list-style-type: none;
+}
+
+nav a, nav a:visited {
+  /* color: #222; */
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  border-bottom: 1px dotted white;
+  padding-bottom: 2px;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+}
+
+a {
+  color: var(--olympic-blue);
+}
+
+a:visited {
+  color: var(--aconite-violet);
+}
+
+ol {
+  padding-left: 0;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1, h2, h3, p {
+  margin: var(--spacing-s) 0;
+  font-weight: normal;
+}
+
+h1 {
+  border-bottom: 1px solid black;
+  padding-bottom: var(--spacing-s);
+}
+
+h2 {
+  font-weight: normal;
+}
+
+main ol, main ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.cover {
+  text-align: center;
+  line-height: 400%;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  margin-bottom: var(--spacing);
+}
+
+div.cover h1 {
+  border: none;
+  word-wrap: break-all;
+}
+
+div.cover h1, div.cover h2 {
+  letter-spacing: 12px;
+}
+
+ol.postlist li {
+  margin-bottom: var(--spacing-s);
+}
+
+span.postdate {
+  display: block;
+  text-align: left;
+  margin: 0;
+  font-family: monospace;
+}
+
+article time {
+  font-style: italic;
+  font-size: 12px;
+}
+
+pre {
+  padding: var(--spacing-s);
+  background-color: #e5e5e5;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+p code {
+  background-color: #e5e5e5;
+  padding: 0 4px;
+}
+
+.postlist time {
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 1000px)  {
+  .postlist time {
+    display: inline-block;
+    width: 16ch;
+    text-align: right;
+    margin-right: 1ch;
+    margin-left: -17ch;
+  }
+
+  .postlist time:after {
+    content: ' ·';
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/pages/blog-styleguide/">Styleguide</a></li>
+          <li><a href="/pages/impressum/">Impressum</a></li>
+        </ol>
+      </nav>
+    </header>
+    <main>
+      <article>
+<h1>But wait, there&#39;s more! (to consider about the ForkJoinPool and parallel streams)</h1>
+
+<time datetime="2015-04-16">2015-04-16</time>
+
+<p>I <a href="/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/">wrote earlier</a> about the problems with using a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html"><code>ForkJoinPool</code></a> explicitly, or implicitly through parallel streams, together with a SecurityManager. There are even more caveats with the way the <code>ForkJoinPool</code> is used by the parallel streams implementation and with the model of concurrency implemented by it.</p>
+<p>The first issue with parallel streams is that they use a static, JVM-wide instance of a <code>ForkJoinPool</code>, called the <code>commonPool</code>. Implicitly using this opaque shared pool, you lose a lot of visibility into and control over important pool parameters that may be crucial to attaining high performance. Oleg Shelajev of Zeroturnaround <a href="http://zeroturnaround.com/rebellabs/java-parallel-streams-are-bad-for-your-health/">writes</a> about some of the congestion and management issues you can run into.</p>
+<p>The second problem is that the <code>ForkJoinPool</code> as it is implemented in the JDK offers a very specific and narrow form of parallel processing. Edward Harned from Coopsoft <a href="http://coopsoft.com/ar/Calamity2Article.html">writes at length</a> about many of the characteristics and pitfalls of the particular form of recursive decomposition as implemented by the Java <code>ForkJoinPool</code>. You need to be very aware of your particular parallelization problem and make a very considered decision about whether this kind of fork/join approach is right for you.</p>
+<p>Combine these two aspects together: little to no control over the parameters of the shared JVM-wide commonPool and the very narrow utility of the fork/join parallelization model, and it becomes clear that the utility of parallel streams is very limited and harbours many hidden dangers.</p>
+<p>It is possible that as things currently stand, it is a little bit too easy to shoot yourself in the proverbial foot.</p>
+
+
+</article>
+
+    </main>
+    <footer>
+      <!-- dotted diple -->
+      ⸓
+    </footer>
+  </body>
+</html>

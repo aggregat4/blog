@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Using Custom Elements With Declarative Templates</title>    
+    <!-- <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">  -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Merriweather&display=swap" rel="stylesheet">  -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Merriweather&family=Roboto+Slab&display=swap" rel="stylesheet"> 
+    <style>
+/* From monica.css */
+* {box-sizing: border-box}
+[hidden] {display: none !important}
+[disabled] {pointer-events:none; opacity: 0.3}
+.horizontal {display: flex; flex-direction: row; justify-content: space-between}
+.vertical {display: flex; flex-direction: column}
+.center {justify-content: center; align-items: center}
+.flex {flex: 1}
+html {
+  --spacing-xs: 8px;
+  --spacing: 24px;
+  --spacing-s: 12px;
+  --spacing-m: 36px;
+  /* Color scheme 324, page 233 */
+  --pompeian-red: rgb(162, 46, 55);
+  --olympic-blue: #247291;
+  --aconite-violet: #85608e;
+  --neutral-gray: #B5D1CC;
+}
+
+/* Custom styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  /* font-family: 'Merriweather', serif; */
+  font-family: 'Roboto Slab', serif;
+}
+pre, code {
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 3px;
+}
+header, footer {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+main {
+  max-width: 75ch;
+  margin: auto;
+  padding: 0 var(--spacing) var(--spacing) var(--spacing);
+}
+footer {
+  font-size: 21px;
+  margin-bottom: var(--spacing);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif;
+  /* font-family: 'Open Sans', sans-serif; */
+}
+
+nav {
+  margin: auto;
+  /* background-color: #e54040; */
+  /* color: white; */
+  padding: var(--spacing-s);
+  /* text-shadow: rgba(100, 100, 100, 0.25) 1px 1px 1px; */
+  /* border-bottom: 1px dashed #333; */
+  /* border-right: none; */  
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  margin: var(--spacing);
+  background-color: var(--pompeian-red);
+  color: white;
+  border-radius: 3px;
+
+}
+nav ol {
+  margin: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav ol li {
+  margin: 0 var(--spacing-s);
+}
+
+nav ol li, main ol li {
+  list-style-type: none;
+}
+
+nav a, nav a:visited {
+  /* color: #222; */
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  border-bottom: 1px dotted white;
+  padding-bottom: 2px;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+}
+
+a {
+  color: var(--olympic-blue);
+}
+
+a:visited {
+  color: var(--aconite-violet);
+}
+
+ol {
+  padding-left: 0;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1, h2, h3, p {
+  margin: var(--spacing-s) 0;
+  font-weight: normal;
+}
+
+h1 {
+  border-bottom: 1px solid black;
+  padding-bottom: var(--spacing-s);
+}
+
+h2 {
+  font-weight: normal;
+}
+
+main ol, main ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.cover {
+  text-align: center;
+  line-height: 400%;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  margin-bottom: var(--spacing);
+}
+
+div.cover h1 {
+  border: none;
+  word-wrap: break-all;
+}
+
+div.cover h1, div.cover h2 {
+  letter-spacing: 12px;
+}
+
+ol.postlist li {
+  margin-bottom: var(--spacing-s);
+}
+
+span.postdate {
+  display: block;
+  text-align: left;
+  margin: 0;
+  font-family: monospace;
+}
+
+article time {
+  font-style: italic;
+  font-size: 12px;
+}
+
+pre {
+  padding: var(--spacing-s);
+  background-color: #e5e5e5;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+p code {
+  background-color: #e5e5e5;
+  padding: 0 4px;
+}
+
+.postlist time {
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 1000px)  {
+  .postlist time {
+    display: inline-block;
+    width: 16ch;
+    text-align: right;
+    margin-right: 1ch;
+    margin-left: -17ch;
+  }
+
+  .postlist time:after {
+    content: ' ·';
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/pages/blog-styleguide/">Styleguide</a></li>
+          <li><a href="/pages/impressum/">Impressum</a></li>
+        </ol>
+      </nav>
+    </header>
+    <main>
+      <article>
+<h1>Using Custom Elements With Declarative Templates</h1>
+
+<time datetime="2020-02-06">2020-02-06</time>
+
+<p>When you use declarative templates like lit-html or JSX or any other variant together with custom elements you will need to declare and use your custom elements as HTML tags. Since you can’t construct your components with a non-default constructor you need to employ a different strategy for configuring them:</p>
+<ul>
+<li>Expose your configuration parameters as attributes</li>
+<li>Expose all your dependency injection requirements (other services or objects) as properties</li>
+</ul>
+<p>When the custom element has been added to the DOM you must make sure to inject all the dependencies and then initialize it. This seems a little bit more unsafe, but it allows declarative usage and it works fine.</p>
+<p>There is an additional technique you can use to wire up components. Instead of wiring them up directly you can also work with certain conventions. For example a progress indicator could look at its ancestor elements by a certain class and use that to wire itself up.</p>
+
+
+</article>
+
+    </main>
+    <footer>
+      <!-- dotted diple -->
+      ⸓
+    </footer>
+  </body>
+</html>

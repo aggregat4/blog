@@ -1,0 +1,23 @@
+---
+layout: sitelayout.njk
+title: All Posts on Brennschluss
+---
+
+<div class="cover">
+  <h1>Apparat.</h1>
+  a<br>
+  <h2>BLOG</h2>
+  by<br>
+  <h3>Boris Terzic</h3>
+</div>
+
+<div class="postlist">
+  <h2>All Posts</h2>
+  <ol class="postlist">
+  {# Each tag is exposed as its own collection you can iterate over #}
+  {%- for post in collections.post | reverse -%}
+    {# isodate is a custom filter defined in .eleventy.js #}
+    <li><time datetime="{{ post.data.date | isodate }}">{{ post.data.date | isodate }}</time><a href="{{ post.url }}">{{ post.data.title }}</a></li>
+  {%- endfor -%}
+  </ol>
+</div>

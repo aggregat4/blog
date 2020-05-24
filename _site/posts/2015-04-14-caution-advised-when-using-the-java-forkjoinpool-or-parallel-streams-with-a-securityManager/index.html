@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager</title>    
+    <!-- <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">  -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Merriweather&display=swap" rel="stylesheet">  -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Merriweather&family=Roboto+Slab&display=swap" rel="stylesheet"> 
+    <style>
+/* From monica.css */
+* {box-sizing: border-box}
+[hidden] {display: none !important}
+[disabled] {pointer-events:none; opacity: 0.3}
+.horizontal {display: flex; flex-direction: row; justify-content: space-between}
+.vertical {display: flex; flex-direction: column}
+.center {justify-content: center; align-items: center}
+.flex {flex: 1}
+html {
+  --spacing-xs: 8px;
+  --spacing: 24px;
+  --spacing-s: 12px;
+  --spacing-m: 36px;
+  /* Color scheme 324, page 233 */
+  --pompeian-red: rgb(162, 46, 55);
+  --olympic-blue: #247291;
+  --aconite-violet: #85608e;
+  --neutral-gray: #B5D1CC;
+}
+
+/* Custom styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  /* font-family: 'Merriweather', serif; */
+  font-family: 'Roboto Slab', serif;
+}
+pre, code {
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 3px;
+}
+header, footer {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+main {
+  max-width: 75ch;
+  margin: auto;
+  padding: 0 var(--spacing) var(--spacing) var(--spacing);
+}
+footer {
+  font-size: 21px;
+  margin-bottom: var(--spacing);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif;
+  /* font-family: 'Open Sans', sans-serif; */
+}
+
+nav {
+  margin: auto;
+  /* background-color: #e54040; */
+  /* color: white; */
+  padding: var(--spacing-s);
+  /* text-shadow: rgba(100, 100, 100, 0.25) 1px 1px 1px; */
+  /* border-bottom: 1px dashed #333; */
+  /* border-right: none; */  
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  margin: var(--spacing);
+  background-color: var(--pompeian-red);
+  color: white;
+  border-radius: 3px;
+
+}
+nav ol {
+  margin: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav ol li {
+  margin: 0 var(--spacing-s);
+}
+
+nav ol li, main ol li {
+  list-style-type: none;
+}
+
+nav a, nav a:visited {
+  /* color: #222; */
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  border-bottom: 1px dotted white;
+  padding-bottom: 2px;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+}
+
+a {
+  color: var(--olympic-blue);
+}
+
+a:visited {
+  color: var(--aconite-violet);
+}
+
+ol {
+  padding-left: 0;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1, h2, h3, p {
+  margin: var(--spacing-s) 0;
+  font-weight: normal;
+}
+
+h1 {
+  border-bottom: 1px solid black;
+  padding-bottom: var(--spacing-s);
+}
+
+h2 {
+  font-weight: normal;
+}
+
+main ol, main ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.cover {
+  text-align: center;
+  line-height: 400%;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  margin-bottom: var(--spacing);
+}
+
+div.cover h1 {
+  border: none;
+  word-wrap: break-all;
+}
+
+div.cover h1, div.cover h2 {
+  letter-spacing: 12px;
+}
+
+ol.postlist li {
+  margin-bottom: var(--spacing-s);
+}
+
+span.postdate {
+  display: block;
+  text-align: left;
+  margin: 0;
+  font-family: monospace;
+}
+
+article time {
+  font-style: italic;
+  font-size: 12px;
+}
+
+pre {
+  padding: var(--spacing-s);
+  background-color: #e5e5e5;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+p code {
+  background-color: #e5e5e5;
+  padding: 0 4px;
+}
+
+.postlist time {
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 1000px)  {
+  .postlist time {
+    display: inline-block;
+    width: 16ch;
+    text-align: right;
+    margin-right: 1ch;
+    margin-left: -17ch;
+  }
+
+  .postlist time:after {
+    content: ' ·';
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/pages/blog-styleguide/">Styleguide</a></li>
+          <li><a href="/pages/impressum/">Impressum</a></li>
+        </ol>
+      </nav>
+    </header>
+    <main>
+      <article>
+<h1>Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager</h1>
+
+<time datetime="2015-04-14">2015-04-14</time>
+
+<p>In Java 7 the <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html">fork/join framework</a> was introduced as an additional tool in the concurrency toolbox. It can be used to conveniently solve problems that lend themselves to easy subdivision, in a parallell fashion without having to worry about any concurrency mechanics.\n
+Aside from being a convenient user facing feature, this framework has also become the basis for other JDK implementations that require such a parallellization approach. Features like <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html"><code>Arrays.parallelSort()</code></a> and <a href="https://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html">parallel streams</a>. And there lies the rub.</p>
+<p>The fork/join framework uses a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html"><code>ForkJoinPool</code></a> to take the parallel tasks and execute them on a bunch of threads. By default it will use its own implementation of a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.ForkJoinWorkerThreadFactory.html"><code>ForkJoinPool.ForkJoinWorkerThreadFactory</code></a> to construct the threads to be used, but it can be configured with a custom factory in its constructor.</p>
+<p>In the case of JDK features such as parallel streams there is no API to specify this factory. In fact the JDK will default to using a system wide, static ForkJoinPool that is stored inside of the <code>common</code> field of the ForkJoinPool class. This pool is initialized in the method <code>makeCommonPool</code> of the same class.</p>
+<p>This common pool turns out to be constructed in a very specific, very peculiar way. As Doug Lea explains in a <a href="http://cs.oswego.edu/pipermail/concurrency-interest/2013-December/012123.html">post</a> to the <a href="http://cs.oswego.edu/pipermail/concurrency-interest/">concurrency-interest</a> mailing list, there was a concern that these &quot;easy&quot; ways to parallelize certain workloads could put undue strain on certain production systems and it was felt to be necessary, or at least desirable, to allow administrators to limit the amount of implicit parallelism exhibited by the JVM in certain production scenarios.</p>
+<p>One result of this policy is that the logic for instantiating the common pool defaults to using a different, very conservative, ForkJoinWorkerThreadFactory implementation called the <a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/diff/e2bdddb8bedf/src/share/classes/java/util/concurrent/ForkJoinPool.java"><code>InnocuousForkJoinWorkerThreadFactory</code></a> when it <em>detects that a SecurityManager is active</em>. This implementation runs worker threads with no permissions. This allows &quot;innocuous&quot; parallelism where something is calculated for example, but prevents parallel tasks from doing anything that requires permissions such as opening files.</p>
+<p>This leads us to the first problem: when running with a security manager you get a different configuration of the common pool and you may not be able to run your parallel code, depending on its required permissions. Luckily there is a workaround for this. The ForkJoinPool <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html">documents</a> a system property called <code>java.util.concurrent.ForkJoinPool.common.threadFactory</code> that allows you to specifically set the ThreadFactory implementation to be used. With this you can provide your own implementation that runs with normal permissions and Bob is your uncle.</p>
+<p>Unless you are running in a WebStart environment. Wait, does anyone still use WebStart? Yes, sadly, we do. Since JDK 7u45 <a href="https://bugs.openjdk.java.net/browse/JDK-8023821">&quot;insecure properties set in a JNLP file are no longer passed to the application&quot;</a>, unless you sign your JNLP file. The ThreadFactory property is not a secure property. Either you sign your JNLP files (which is incredibly cumbersome, and in the case of required customer customization, often not economically feasible) or you wrap that property in a <code>jnlp.</code> prefixed &quot;secure&quot; property and translate that inside your application into the right property.</p>
+<p>Assuming that you did this (and we did) it will sadly still not work. When running in a Java WebStart environment, <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/javaws/developersguide/faq.html#s211">a user-level classloader is used to load all resources specified in the JNLP file</a> and as a result you can no longer use <code>Class.forName</code> or <code>ClassLoader.getSystemClassLoader</code> to load resources and classes. The ForkJoinPool uses <code>ClassLoader.getSystemClassLoader</code> to try to load the custom ThreadFactory you set using the system property and will fail.</p>
+<p>The executive summary is that if you are running your application using Java WebStart you <em>must</em> construct your ForkJoinPool instances with a custom ThreadFactory if you want to parallelize any operation that requires security permissions and you <em>should not</em> use parallel streams for such operations. At work we have decided not to use parallel streams at all until we have a usable workaround for the described problem.</p>
+
+
+</article>
+
+    </main>
+    <footer>
+      <!-- dotted diple -->
+      ⸓
+    </footer>
+  </body>
+</html>
