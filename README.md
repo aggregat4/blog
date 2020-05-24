@@ -1,6 +1,4 @@
-# Page header
+# APPARAT Blog Source
 
-
-# TODO
-* find font, serif, see elements of typographic style
-* find color scheme see japanese book
+## TODO
+* Get a Travis build running to automatically regenerate the site on pushes (allows me to do remote editing)
