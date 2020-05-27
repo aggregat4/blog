@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology.">
+    
+    <title>Reducing Dependencies With an Absolutely Minimal Testing Framework</title>    
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Open+Sans&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <style>
+/* From monica.css */
+* {box-sizing: border-box}
+[hidden] {display: none !important}
+[disabled] {pointer-events:none; opacity: 0.3}
+.horizontal {display: flex; flex-direction: row; justify-content: space-between}
+.vertical {display: flex; flex-direction: column}
+.center {justify-content: center; align-items: center}
+.flex {flex: 1}
+html {
+  --spacing-xs: 8px;
+  --spacing: 24px;
+  --spacing-s: 12px;
+  --spacing-m: 36px;
+  /* Color scheme 324, page 233 */
+  --pompeian-red: rgb(162, 46, 55);
+  --olympic-blue: #247291;
+  --aconite-violet: #85608e;
+  --neutral-gray: #B5D1CC;
+}
+
+/* Custom styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Roboto Slab', serif;
+}
+pre, code {
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 3px;
+}
+header, footer {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+main {
+  max-width: 75ch;
+  margin: auto;
+  padding: 0 var(--spacing) var(--spacing) var(--spacing);
+}
+footer {
+  font-size: 21px;
+  margin-bottom: var(--spacing);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif;
+}
+
+nav {
+  margin: auto;
+  padding: var(--spacing-s);
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  margin: var(--spacing);
+  background-color: var(--pompeian-red);
+  color: white;
+  border-radius: 3px;
+
+}
+nav ol {
+  margin: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav ol li {
+  margin: 0 var(--spacing-s);
+}
+
+nav ol li, main ol li {
+  list-style-type: none;
+}
+
+nav a, nav a:visited {
+  /* color: #222; */
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  border-bottom: 1px dotted white;
+  padding-bottom: 2px;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+}
+
+a {
+  color: var(--olympic-blue);
+}
+
+a:visited {
+  color: var(--aconite-violet);
+}
+
+ol {
+  padding-left: 0;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h1, h2, h3, p {
+  margin: var(--spacing-s) 0;
+  font-weight: normal;
+}
+
+h1 {
+  border-bottom: 1px solid black;
+  padding-bottom: var(--spacing-s);
+}
+
+h2 {
+  font-weight: normal;
+}
+
+main ol, main ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.cover {
+  text-align: center;
+  line-height: 400%;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  margin-bottom: var(--spacing);
+}
+
+div.cover h1 {
+  border: none;
+  word-wrap: break-all;
+}
+
+div.cover h1, div.cover h2 {
+  letter-spacing: 12px;
+}
+
+ol.postlist li {
+  margin-bottom: var(--spacing-s);
+}
+
+span.postdate {
+  display: block;
+  text-align: left;
+  margin: 0;
+  font-family: monospace;
+}
+
+article time {
+  font-style: italic;
+  font-size: 12px;
+}
+
+pre {
+  padding: var(--spacing-s);
+  background-color: #e5e5e5;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+p code {
+  background-color: #e5e5e5;
+  padding: 0 4px;
+}
+
+.postlist time {
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+@media only screen and (min-width: 1000px)  {
+  .postlist time {
+    display: inline-block;
+    width: 16ch;
+    text-align: right;
+    margin-right: 1ch;
+    margin-left: -17ch;
+  }
+
+  .postlist time:after {
+    content: ' ·';
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/pages/blog-styleguide/">Styleguide</a></li>
+          <li><a href="/pages/impressum/">Impressum</a></li>
+        </ol>
+      </nav>
+    </header>
+    <main>
+      <article>
+<h1>Reducing Dependencies With an Absolutely Minimal Testing Framework</h1>
+
+<time datetime="2020-02-09">2020-02-09</time>
+
+<p>Inspired by <a href="https://github.com/volument/baretest/blob/master/baretest.js">baretest</a> I wanted to move my testing setup from jest to something similarly minimal. <code>baretest</code> is less than 100 lines of very understandable Javascript code and a bunch of that is even concerned with color highlighting!</p>
+<p>We use jest at work and it works fine, but it is an enormous framework with many dependencies. In my personal project it was the last thing holding me back from removing babel as a dependency. baretest's incredible simplicity motivated me to try to replace jest with something similar.</p>
+<p>I transformed baretest into Typescript and added it to my project. Since I still need some form of assertions in my tests I decided to use <a href="https://github.com/dylanparry/ceylon">Ceylon</a> (a Typescript assertion library) as a more or less drop in replacement for the jest assertions.</p>
+<p>Since we no longer have jest doing all kinds of magic we can't just have tests sprinkled over the workspace and automatically gathered and executed. Instead we now have a manual test suite that gathers the individual test files and runs them:</p>
+<pre><code class="language-javascript">// Set up a fake dom environment for tests since we are not in the browser (see https://github.com/rstacruz/jsdom-global)
+import 'jsdom-global/register'
+
+import { trun } from './tizzytest'
+
+// All the tests
+import './vectorclock.test'
+import './domain-search.test'
+import './keyboardshortcut.test'
+import './logoot-sequence-wrapper.test'
+import './markup.test'
+import './util.test'
+
+// Run tests async since the trun is async
+;(async () =&gt; await trun('All Tests'))()
+</code></pre>
+<p><code>tizzytest</code> is my typescript conversion of baretest. I run this file with <code>npx ts-node test/runtests.ts</code>.</p>
+<p>Doing this conversion I stumbled on a few interesting issues.</p>
+<p><code>ts-node</code> spat out &quot;navigator is undefined&quot; as an error message. This was Typescript complaining about code that was using browser APIs and in a nodejs environment those are not available. Presumably jest provides all this out of the box. Some googling made clear that the typical solution is to use <code>jsdom</code> as a headless dom implementation and more specifically <code>jsdom-global</code> has a register module that sets up a basic browser environment for exactly these cases.</p>
+<p>This explains the top line in the <code>runtests.ts</code> file:</p>
+<pre><code class="language-javascript">import 'jsdom-global/register'
+</code></pre>
+<p>The second issue was ts-node having trouble loading pure javascript files and treating them as es6 modules. This is a known issue with node. You can work around it by renaming the file to <code>.mjs</code> which makes node see it as an ES6 module, but Typescript doesn't currently support this file extension for loading dependencies.</p>
+<p>My fix for this was to simply rename the file to  <code>.ts</code> and treat it as a Typescript file. This is always an option since Typescript is just a superset of Javascript.</p>
+<p>In this particular case I think running the tests with my own simple runner is absolutely worth it. This does not mean that using something like jest is a bad idea. At work we use it and it makes sense. As soon as you need more of the many features it provides and you have a team of people working with the technology that has support, issues and documentation then it may well be worth to depend on something that is a bit more heavy weight.</p>
+<p>This is the same trade-off one has with all libraries and frameworks: when does it make sense for me to use it and when should I maybe try to do something myself? There is no one size fits all answer to this question. But it is always worth asking these questions and discussing them.</p>
+
+
+</article>
+
+    </main>
+    <footer>
+      <!-- dotted diple -->
+      ⸓
+    </footer>
+  </body>
+</html>
