@@ -221,9 +221,9 @@ p code {
 
 <time datetime="2020-02-09">2020-02-09</time>
 
-<p>Inspired by <a href="https://github.com/volument/baretest/blob/master/baretest.js">baretest</a> I wanted to move my testing setup from jest to something similarly minimal. <code>baretest</code> is less than 100 lines of very understandable Javascript code and a bunch of that is even concerned with color highlighting!</p>
-<p>We use jest at work and it works fine, but it is an enormous framework with many dependencies. In my personal project it was the last thing holding me back from removing babel as a dependency. baretest's incredible simplicity motivated me to try to replace jest with something similar.</p>
-<p>I transformed baretest into Typescript and added it to my project. Since I still need some form of assertions in my tests I decided to use <a href="https://github.com/dylanparry/ceylon">Ceylon</a> (a Typescript assertion library) as a more or less drop in replacement for the jest assertions.</p>
+<p>Inspired by <a href="https://github.com/volument/baretest/blob/master/baretest.js">Baretest</a> I wanted to move my testing setup from jest to something similarly minimal. Baretest is less than 100 lines of very understandable JavaScript code and a bunch of that is even concerned with color highlighting!</p>
+<p>We use jest at work and it works fine, but it is an enormous framework with many dependencies. In my personal project it was the last thing holding me back from removing babel as a dependency. Baretest's incredible simplicity motivated me to try to replace jest with something similar.</p>
+<p>I transformed Baretest into TypeScript and added it to my project. Since I still need some form of assertions in my tests I decided to use <a href="https://github.com/dylanparry/ceylon">Ceylon</a> (a TypeScript assertion library) as a more or less drop in replacement for the jest assertions.</p>
 <p>Since we no longer have jest doing all kinds of magic we can't just have tests sprinkled over the workspace and automatically gathered and executed. Instead we now have a manual test suite that gathers the individual test files and runs them:</p>
 <pre><code class="language-javascript">// Set up a fake dom environment for tests since we are not in the browser (see https://github.com/rstacruz/jsdom-global)
 import 'jsdom-global/register'
@@ -241,14 +241,14 @@ import './util.test'
 // Run tests async since the trun is async
 ;(async () =&gt; await trun('All Tests'))()
 </code></pre>
-<p><code>tizzytest</code> is my typescript conversion of baretest. I run this file with <code>npx ts-node test/runtests.ts</code>.</p>
+<p>Tizzytest is my TypeScript conversion of Baretest. I run this file with <code>npx ts-node test/runtests.ts</code>.</p>
 <p>Doing this conversion I stumbled on a few interesting issues.</p>
-<p><code>ts-node</code> spat out &quot;navigator is undefined&quot; as an error message. This was Typescript complaining about code that was using browser APIs and in a nodejs environment those are not available. Presumably jest provides all this out of the box. Some googling made clear that the typical solution is to use <code>jsdom</code> as a headless dom implementation and more specifically <code>jsdom-global</code> has a register module that sets up a basic browser environment for exactly these cases.</p>
+<p><code>ts-node</code> spat out &quot;navigator is undefined&quot; as an error message. This was TypeScript complaining about code that was using browser APIs and in a nodejs environment those are not available. Presumably jest provides all this out of the box. Some googling made clear that the typical solution is to use <code>jsdom</code> as a headless dom implementation and more specifically <code>jsdom-global</code> has a register module that sets up a basic browser environment for exactly these cases.</p>
 <p>This explains the top line in the <code>runtests.ts</code> file:</p>
 <pre><code class="language-javascript">import 'jsdom-global/register'
 </code></pre>
-<p>The second issue was ts-node having trouble loading pure javascript files and treating them as es6 modules. This is a known issue with node. You can work around it by renaming the file to <code>.mjs</code> which makes node see it as an ES6 module, but Typescript doesn't currently support this file extension for loading dependencies.</p>
-<p>My fix for this was to simply rename the file to  <code>.ts</code> and treat it as a Typescript file. This is always an option since Typescript is just a superset of Javascript.</p>
+<p>The second issue was ts-node having trouble loading pure JavaScript files and treating them as es6 modules. This is a known issue with node. You can work around it by renaming the file to <code>.mjs</code> which makes node see it as an ES6 module, but TypeScript doesn't currently support this file extension for loading dependencies.</p>
+<p>My fix for this was to simply rename the file to  <code>.ts</code> and treat it as a TypeScript file. This is always an option since TypeScript is just a superset of JavaScript.</p>
 <p>In this particular case I think running the tests with my own simple runner is absolutely worth it. This does not mean that using something like jest is a bad idea. At work we use it and it makes sense. As soon as you need more of the many features it provides and you have a team of people working with the technology that has support, issues and documentation then it may well be worth to depend on something that is a bit more heavy weight.</p>
 <p>This is the same trade-off one has with all libraries and frameworks: when does it make sense for me to use it and when should I maybe try to do something myself? There is no one size fits all answer to this question. But it is always worth asking these questions and discussing them.</p>
 
