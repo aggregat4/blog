@@ -1,1 +1,5 @@
 node_modules
+# Excluding the generated output directory since we deploy using a 
+# github workflow and that does not commit the _site directory to
+# the repo but just directly to the gh-pages branch
+_site
