@@ -28,6 +28,8 @@ html {
   --olympic-blue: #247291;
   --aconite-violet: #85608e;
   --neutral-gray: #B5D1CC;
+  --color-gainsboro: #DCDCDC;
+  --color-code-bg: #eeeeee;
 }
 
 /* Custom styles */
@@ -37,6 +39,10 @@ body {
   font-size: 16px;
   line-height: 1.5;
   font-family: 'Roboto Slab', serif;
+}
+::selection {
+  background: var(--olympic-blue);
+  color: white;
 }
 pre, code {
   font-family: monospace;
@@ -73,7 +79,6 @@ nav {
   background-color: var(--pompeian-red);
   color: white;
   border-radius: 3px;
-
 }
 nav ol {
   margin: 0;
@@ -91,7 +96,6 @@ nav ol li, main ol li {
 }
 
 nav a, nav a:visited {
-  /* color: #222; */
   color: white;
   text-decoration: none;
 }
@@ -176,12 +180,12 @@ article time {
 
 pre {
   padding: var(--spacing-s);
-  background-color: #e5e5e5;
+  background-color: var(--color-code-bg);
   overflow-x: auto;
   overflow-y: hidden;
 }
 p code {
-  background-color: #e5e5e5;
+  background-color: var(--color-code-bg);
   padding: 0 4px;
 }
 
