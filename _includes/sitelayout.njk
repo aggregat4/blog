@@ -29,7 +29,12 @@ html {
   --aconite-violet: #85608e;
   --neutral-gray: #B5D1CC;
   --color-gainsboro: #DCDCDC;
-  --color-code-bg: #eeeeee;
+  {# --color-code-bg: #eeeeee; #}
+  --color-code-bg: #f5f2f0;
+}
+
+/* TODO: dark theme */
+@media (prefers-color-scheme: dark) {
 }
 
 /* Custom styles */
@@ -37,7 +42,8 @@ body {
   margin: 0;
   padding: 0;
   font-size: 16px;
-  line-height: 1.5;
+  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
+  line-height: calc(1ex / 0.32);
   font-family: 'Roboto Slab', serif;
 }
 ::selection {
@@ -198,10 +204,10 @@ p code {
 @media only screen and (min-width: 1000px)  {
   .postlist time {
     display: inline-block;
-    width: 16ch;
+    width: 18ch;
     text-align: right;
     margin-right: 1ch;
-    margin-left: -17ch;
+    margin-left: -18ch;
   }
 
   .postlist time:after {
