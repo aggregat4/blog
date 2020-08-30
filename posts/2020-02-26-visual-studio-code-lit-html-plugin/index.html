@@ -18,8 +18,8 @@
 .flex {flex: 1}
 html {
   --spacing-xs: 8px;
-  --spacing: 24px;
   --spacing-s: 12px;
+  --spacing: 24px;
   --spacing-m: 36px;
   /* Color scheme 324, page 233 */
   --pompeian-red: rgb(162, 46, 55);
@@ -70,6 +70,7 @@ footer {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
+  line-height: 
 }
 
 nav {
@@ -135,9 +136,14 @@ h1, h2, h3, p {
   font-weight: normal;
 }
 
+/* To make <time> be close to the header, this may be a bit too rough */
+h1 {
+  margin: 0;
+}
+
 h1 {
   border-bottom: 1px solid black;
-  padding-bottom: var(--spacing-s);
+  padding-bottom: var(--spacing-xs);
 }
 
 h2 {
@@ -197,15 +203,20 @@ p code {
   display: block;
   font-family: monospace;
   font-size: 12px;
+  line-height: 1;
 }
 
 @media only screen and (min-width: 1000px)  {
   .postlist time {
     display: inline-block;
-    width: 18ch;
     text-align: right;
-    margin-right: 1ch;
-    margin-left: -18ch;
+    width: 19ch;
+    margin: 0 0 0 -19ch;
+    padding-right: 1ch;
+  }
+
+  .postlist a {
+    
   }
 
   .postlist time:after {
