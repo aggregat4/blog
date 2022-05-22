@@ -1,7 +1,7 @@
 ---
 layout: post.njk
-title: Automatically Formatting Comments With Prettier is So Nice
-date: 2022-03-20
+title: Automatically Formatting Comments With Prettier is Really Nice
+date: 2022-02-16
 ---
 
 Many IDEs and editors still do not attempt to format multi-line comments. Possibly due to fear of messing up hand-crafted formatting or because it is just really hard to do right.
