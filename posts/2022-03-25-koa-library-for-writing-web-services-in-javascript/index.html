@@ -273,9 +273,9 @@ p code {
 
 <time datetime="2022-03-20">2022-03-20</time>
 
-<p>For <a href="https://github.com/aggregat4/dendriform">Dendriform</a> I needed some minimal library or framework to implement a JavaScript or TypeScript test server that I could use for running integration tests against. I needed basic HTTP protocol support, the ability to serve static content, define custom routes based on URL, HTTP method and Accept-Header.</p>
-<p>The goto to for backend JavaScript has long been <a href="https://expressjs.com/">Express</a> and it is presumably still a good choice. I looked a little bit into it and noticed some complaints of not having out of the box async support. Looking around further for alternative frameworks, it was surprisingly hard to identify a viable and popular candidate that was lightweight enough for my purposes.</p>
-<p>After looking at a handful of possibilities I decided to give <a href="https://koajs.com/">Koa</a> a shot. It is apparently made (or started) by the creator(s) of Express and purports to be a more modern alternative with some of the learning of working on Express baked in.</p>
+<p>For <a href="https://github.com/aggregat4/dendriform">Dendriform</a> I needed a small library or framework to implement a JavaScript (or TypeScript) test server that I could use for running integration tests against. I needed basic HTTP protocol support, the ability to serve static content, define custom routes based on URL, HTTP method and Accept-Header.</p>
+<p>The goto for backend JavaScript has long been <a href="https://expressjs.com/">Express</a> and it is presumably still a good choice. I noticed some complaints of Express not having out of the box async support. Looking around further it was surprisingly hard to identify a viable and popular candidate that was lightweight enough for my purposes.</p>
+<p>After looking at a handful of possibilities I decided to give <a href="https://koajs.com/">Koa</a> a shot. It is apparently made (or started) by the creator(s) of Express and claims to be a more modern alternative with some of the learnings of working on Express baked in.</p>
 <p>Koa builds on the standard node.js HTTP server and offers a small middleware based API. The project is structured as one core library and then many different projects that contribute additional functionality that can be composed using its middleware API.</p>
 <p>The imports for my tiny test server look like this:</p>
 <pre><code class="language-javascript">import Koa from 'koa'
@@ -287,15 +287,15 @@ import serve from 'koa-static'
 </code></pre>
 <p>This is the core Koa import and then additional modules for the functionality I need:</p>
 <ul>
-<li>Koa Router: adds an API for routing requests to functions based on HTTP method, URL, etc.</li>
-<li>Koa Body: extends the Koa API with various useful utilities for parsing request bodies in various formats.</li>
-<li>Koa Logger: allows you to easily log all requests, responses and status codes to make debugging easier.</li>
-<li>Koa Mount: allows mounting <em>other</em> middleware on a certain path inside your application.</li>
-<li>Koa Static: allows serving static files directly from disk.</li>
+<li><a href="https://github.com/koajs/router">Koa Router</a>: adds an API for routing requests to functions based on HTTP method, URL, etc.</li>
+<li><a href="https://github.com/koajs/koa-body">Koa Body</a>: extends the Koa API with various useful utilities for parsing request bodies in various formats.</li>
+<li><a href="https://github.com/koajs/logger">Koa Logger</a>: allows you to easily log all requests, responses and status codes to make debugging easier.</li>
+<li><a href="https://github.com/koajs/mount">Koa Mount</a>: allows mounting <em>other</em> middleware on a certain path inside your application.</li>
+<li><a href="https://github.com/koajs/static">Koa Static</a>: allows serving static files directly from disk.</li>
 </ul>
 <p>Koa Mount is a nice example of the composability of the middleware pattern: I use it to expose the static files provided by Koa Static on a certain URL inside of my own application. Neither of these components need to know about each other.</p>
-<p>All in all it was a very pleasant experience to implement a trivial web service with Koa and I can highly recommend it for these use cases.</p>
-<p>It feels like the middleware pattern is quasi-optimal for the use case of exposing web services and having the ability to add a ton of cross-cutting concerns (logging, authentication, authorization, etc) on top of your actual service logic.</p>
+<p>All in all it was a very pleasant experience to implement a simple web service with Koa and I can recommend it for this use case. You can have a look at the full service implementation here: <a href="https://github.com/aggregat4/dendriform/blob/a378143c18a23d215a5734f1952b8f6aa8bb66e3/test/e2e/tiny-dendriform-server.ts">tiny-dendriform-server.ts</a>.</p>
+<p>It feels like the middleware pattern is quasi-optimal for the use case of exposing web services and having the ability to add a bunch of cross-cutting concerns (logging, authentication, authorization, etc) on top of your actual service logic.</p>
 <p>I discovered some non critical downsides to Koa during my very limited usage of the library.</p>
 <p>It's unclear to me how alive this project is: there are occasional releases being made, but the main development effort was some years ago and there is disturbingly little traffic on the issues or code bases of some of the components. This may also just be a case of me no knowing where the actual community takes place, or perhaps the library is just really mature and works for most people.</p>
 <p>Documentation exists but seems thin and somewhat spotty. I had to resort to reading a bunch of the example code and tests in their repository. And it was sometimes hard to figure out the exact recommended way to solve a particular problem. On the up side: there <em>are</em> tests and example code.</p>
