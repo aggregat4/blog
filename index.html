@@ -21,7 +21,7 @@ html {
   --spacing-s: 12px;
   --spacing: 24px;
   --spacing-m: 36px;
-  /* Color scheme 324, page 233 */
+  /* Color scheme 324, page 233 from A Dictionary of Color Combinations */
   --pompeian-red: rgb(162, 46, 55);
   --olympic-blue: #247291;
   --aconite-violet: #85608e;
@@ -70,18 +70,30 @@ footer {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
-  line-height: 
 }
 
 nav {
   margin: auto;
-  padding: var(--spacing-s);
+  padding: var(--spacing-xs);
   font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: normal;
   margin: var(--spacing);
-  background-color: var(--pompeian-red);
+  /* Made with https://www.joshwcomeau.com/gradient-generator/ */
+  background-image: linear-gradient(
+    45deg,
+    hsl(355deg 56% 41%) 0%,
+    hsl(351deg 44% 41%) 13%,
+    hsl(346deg 34% 41%) 25%,
+    hsl(336deg 25% 41%) 37%,
+    hsl(315deg 15% 40%) 50%,
+    hsl(261deg 12% 42%) 63%,
+    hsl(219deg 19% 42%) 75%,
+    hsl(205deg 35% 40%) 87%,
+    hsl(197deg 60% 35%) 100%
+  );
+  
   color: white;
   border-radius: 3px;
 }
@@ -111,7 +123,7 @@ nav a:hover {
 }
 
 a, a:visited, a:active {
-  text-decoration: none;
+  text-decoration-skip-ink: auto;
 }
 
 a {
@@ -155,7 +167,7 @@ main ol, main ul {
   padding: 0;
 }
 
-div.cover {
+.cover {
   text-align: center;
   line-height: 400%;
   border-bottom: 1px solid black;
@@ -163,12 +175,12 @@ div.cover {
   margin-bottom: var(--spacing);
 }
 
-div.cover h1 {
+.cover h1 {
   border: none;
   word-wrap: break-all;
 }
 
-div.cover h1, div.cover h2 {
+.cover h1, .cover h2 {
   letter-spacing: 12px;
 }
 
@@ -238,16 +250,16 @@ p code {
     </header>
     <main>
       
-<div class="cover">
+<section class="cover">
   <h1>Apparat.</h1>
   a<br>
   <h2>BLOG</h2>
   by<br>
   <h3>Boris Terzic</h3>
-</div>
+</section>
 
-<div class="postlist">
-  <h2>All Posts</h2>
+<section class="postlist">
+  <h1>All Posts</h1>
   <ol class="postlist">
   
     <li><time datetime="2022-03-20">2022-03-20</time><a href="/posts/2022-03-25-koa-library-for-writing-web-services-in-javascript/">Koa Implements a Nice Pattern For Writing Web Services</a></li>
@@ -266,7 +278,7 @@ p code {
     <li><time datetime="2014-05-13">2014-05-13</time><a href="/posts/2014-05-13-encapsulation-does-not-imply-bloated-classes/">Encapsulation does not imply bloated classes</a></li>
     <li><time datetime="2012-11-19">2012-11-19</time><a href="/posts/2012-11-19-streaming-audio-problems-on-android-in-sleep-mode/">Streaming Audio Problems on Android in Sleep Mode</a></li>
     <li><time datetime="2012-04-03">2012-04-03</time><a href="/posts/2012-04-03-not-just-the-scifi/">&quot;Anyway, it&#39;s not just the sci-fi&quot;</a></li></ol>
-</div>
+</section>
 
     </main>
     <footer>
