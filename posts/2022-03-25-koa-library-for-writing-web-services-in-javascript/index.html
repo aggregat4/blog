@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology.">
     
-    <title>All Posts on Apparat</title>    
+    <title>Koa Implements a Nice Pattern For Writing Web Services</title>    
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Open+Sans&family=Roboto+Slab&display=swap" rel="stylesheet">
     <style>
 /* From monica.css */
@@ -237,36 +237,41 @@ p code {
       </nav>
     </header>
     <main>
-      
-<div class="cover">
-  <h1>Apparat.</h1>
-  a<br>
-  <h2>BLOG</h2>
-  by<br>
-  <h3>Boris Terzic</h3>
-</div>
+      <article>
+<h1>Koa Implements a Nice Pattern For Writing Web Services</h1>
 
-<div class="postlist">
-  <h2>All Posts</h2>
-  <ol class="postlist">
-  
-    <li><time datetime="2022-03-20">2022-03-20</time><a href="/posts/2022-03-25-koa-library-for-writing-web-services-in-javascript/">Koa Implements a Nice Pattern For Writing Web Services</a></li>
-    <li><time datetime="2022-03-20">2022-03-20</time><a href="/posts/2022-02-16-auto-formatting-comments-is-so-nice/">Automatically Formatting Comments With Prettier is So Nice</a></li>
-    <li><time datetime="2020-03-18">2020-03-18</time><a href="/posts/2020-03-18-web-components-shared-styles/">Shared Styles for Web Components Are Unsolved</a></li>
-    <li><time datetime="2020-02-28">2020-02-28</time><a href="/posts/2020-02-28-reaching-inside-custom-element-inside-shadowr-dom/">You Can Reach the Child Elements of a Custom Element Even Inside Shadow DOM</a></li>
-    <li><time datetime="2020-02-26">2020-02-26</time><a href="/posts/2020-02-26-visual-studio-code-lit-html-plugin/">The Visual Studio Code lit-html Plugin is Very Helpful</a></li>
-    <li><time datetime="2020-02-26">2020-02-26</time><a href="/posts/2020-02-26-shadow-dom-forces-encapsulation/">Shadow DOM Can Force You to Think About Encapsulation</a></li>
-    <li><time datetime="2020-02-26">2020-02-26</time><a href="/posts/2020-02-26-promises-inside-lit-html-templates/">You Can Use Promises Inside lit-html Templates</a></li>
-    <li><time datetime="2020-02-09">2020-02-09</time><a href="/posts/2020-02-09-blogpost-typescript-elides-imports/">TypeScript Can Surprisingly Elide Imports</a></li>
-    <li><time datetime="2020-02-09">2020-02-09</time><a href="/posts/2020-02-09-blogpost-minimal-testing-framework-for-typescript/">Reducing Dependencies With an Absolutely Minimal Testing Framework</a></li>
-    <li><time datetime="2020-02-06">2020-02-06</time><a href="/posts/2020-02-06-blogpost-custom-elements-declarative-templates/">Using Custom Elements With Declarative Templates</a></li>
-    <li><time datetime="2015-05-26">2015-05-26</time><a href="/posts/2015-05-26-there-is-always-more-to-learn/">There is Always More to Learn</a></li>
-    <li><time datetime="2015-04-16">2015-04-16</time><a href="/posts/2015-04-16-further-forkjoinpool-and-parallel-stream-issues/">But wait, there&#39;s more! (to consider about the ForkJoinPool and parallel streams)</a></li>
-    <li><time datetime="2015-04-14">2015-04-14</time><a href="/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/">Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager</a></li>
-    <li><time datetime="2014-05-13">2014-05-13</time><a href="/posts/2014-05-13-encapsulation-does-not-imply-bloated-classes/">Encapsulation does not imply bloated classes</a></li>
-    <li><time datetime="2012-11-19">2012-11-19</time><a href="/posts/2012-11-19-streaming-audio-problems-on-android-in-sleep-mode/">Streaming Audio Problems on Android in Sleep Mode</a></li>
-    <li><time datetime="2012-04-03">2012-04-03</time><a href="/posts/2012-04-03-not-just-the-scifi/">&quot;Anyway, it&#39;s not just the sci-fi&quot;</a></li></ol>
-</div>
+<time datetime="2022-03-20">2022-03-20</time>
+
+<p>For <a href="https://github.com/aggregat4/dendriform">Dendriform</a> I needed some minimal library or framework to implement a JavaScript or TypeScript test server that I could use for running integration tests against. I needed basic HTTP protocol support, the ability to serve static content, define custom routes based on URL, HTTP method and Accept-Header.</p>
+<p>The goto to for backend JavaScript has long been <a href="https://expressjs.com/">Express</a> and it is presumably still a good choice. I looked a little bit into it and noticed some complaints of not having out of the box async support. Looking around further for alternative frameworks, it was surprisingly hard to identify a viable and popular candidate that was lightweight enough for my purposes.</p>
+<p>After looking at a handful of possibilities I decided to give <a href="https://koajs.com/">Koa</a> a shot. It is apparently made (or started) by the creator(s) of Express and purports to be a more modern alternative with some of the learning of working on Express baked in.</p>
+<p>Koa builds on the standard node.js HTTP server and offers a small middleware based API. The project is structured as one core library and then many different projects that contribute additional functionality that can be composed using its middleware API.</p>
+<p>The imports for my tiny test server look like this:</p>
+<pre><code class="language-javascript">import Koa from 'koa'
+import Router from '@koa/router'
+import bodyParser from 'koa-body'
+import logger from 'koa-logger'
+import mount from 'koa-mount'
+import serve from 'koa-static'
+</code></pre>
+<p>This is the core Koa import and then additional modules for the functionality I need:</p>
+<ul>
+<li>Koa Router: adds an API for routing requests to functions based on HTTP method, URL, etc.</li>
+<li>Koa Body: extends the Koa API with various useful utilities for parsing request bodies in various formats.</li>
+<li>Koa Logger: allows you to easily log all requests, responses and status codes to make debugging easier.</li>
+<li>Koa Mount: allows mounting <em>other</em> middleware on a certain path inside your application.</li>
+<li>Koa Static: allows serving static files directly from disk.</li>
+</ul>
+<p>Koa Mount is a nice example of the composability of the middleware pattern: I use it to expose the static files provided by Koa Static on a certain URL inside of my own application. Neither of these components need to know about each other.</p>
+<p>All in all it was a very pleasant experience to implement a trivial web service with Koa and I can highly recommend it for these use cases.</p>
+<p>It feels like the middleware pattern is quasi-optimal for the use case of exposing web services and having the ability to add a ton of cross-cutting concerns (logging, authentication, authorization, etc) on top of your actual service logic.</p>
+<p>I discovered some non critical downsides to Koa during my very limited usage of the library.</p>
+<p>It's unclear to me how alive this project is: there are occasional releases being made, but the main development effort was some years ago and there is disturbingly little traffic on the issues or code bases of some of the components. This may also just be a case of me no knowing where the actual community takes place, or perhaps the library is just really mature and works for most people.</p>
+<p>Documentation exists but seems thin and somewhat spotty. I had to resort to reading a bunch of the example code and tests in their repository. And it was sometimes hard to figure out the exact recommended way to solve a particular problem. On the up side: there <em>are</em> tests and example code.</p>
+<p>Recommended.</p>
+
+
+</article>
 
     </main>
     <footer>
