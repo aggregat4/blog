@@ -23,7 +23,7 @@ html {
   --spacing-s: 12px;
   --spacing: 24px;
   --spacing-m: 36px;
-  /* Color scheme 324, page 233 */
+  /* Color scheme 324, page 233 from A Dictionary of Color Combinations */
   --pompeian-red: rgb(162, 46, 55);
   --olympic-blue: #247291;
   --aconite-violet: #85608e;
@@ -72,18 +72,30 @@ footer {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
-  line-height: 
 }
 
 nav {
   margin: auto;
-  padding: var(--spacing-s);
+  padding: var(--spacing-xs);
   font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: normal;
   margin: var(--spacing);
-  background-color: var(--pompeian-red);
+  /* Made with https://www.joshwcomeau.com/gradient-generator/ */
+  background-image: linear-gradient(
+    45deg,
+    hsl(355deg 56% 41%) 0%,
+    hsl(351deg 44% 41%) 13%,
+    hsl(346deg 34% 41%) 25%,
+    hsl(336deg 25% 41%) 37%,
+    hsl(315deg 15% 40%) 50%,
+    hsl(261deg 12% 42%) 63%,
+    hsl(219deg 19% 42%) 75%,
+    hsl(205deg 35% 40%) 87%,
+    hsl(197deg 60% 35%) 100%
+  );
+  {# background-color: var(--pompeian-red); #}
   color: white;
   border-radius: 3px;
 }
@@ -113,7 +125,7 @@ nav a:hover {
 }
 
 a, a:visited, a:active {
-  text-decoration: none;
+  text-decoration-skip-ink: auto;
 }
 
 a {
@@ -157,7 +169,7 @@ main ol, main ul {
   padding: 0;
 }
 
-div.cover {
+.cover {
   text-align: center;
   line-height: 400%;
   border-bottom: 1px solid black;
@@ -165,12 +177,12 @@ div.cover {
   margin-bottom: var(--spacing);
 }
 
-div.cover h1 {
+.cover h1 {
   border: none;
   word-wrap: break-all;
 }
 
-div.cover h1, div.cover h2 {
+.cover h1, .cover h2 {
   letter-spacing: 12px;
 }
 
