@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology.">
     
-    <title>All Posts on Apparat</title>    
+    <title>Build Your Own Desktop Environment</title>    
     <style>
 /* Local Google fonts with the help of https://google-webfonts-helper.herokuapp.com  */
 
@@ -270,37 +270,43 @@ p code {
       </nav>
     </header>
     <main>
-      
-<section class="cover">
-  <h1>Apparat.</h1>
-  a<br>
-  <h2>BLOG</h2>
-  by<br>
-  <h3>Boris Terzic</h3>
-</section>
+      <article>
+<h1>Build Your Own Desktop Environment</h1>
 
-<section class="postlist">
-  <h1>All Posts</h1>
-  <ol class="postlist">
-  
-    <li><time datetime="2023-04-19">2023-04-19</time><a href="/posts/2023-04-19-build-your-own-desktop-environment/">Build Your Own Desktop Environment</a></li>
-    <li><time datetime="2022-03-20">2022-03-20</time><a href="/posts/2022-03-25-koa-library-for-writing-web-services-in-javascript/">Koa Implements a Nice Pattern For Writing Web Services</a></li>
-    <li><time datetime="2022-02-16">2022-02-16</time><a href="/posts/2022-02-16-auto-formatting-comments-is-so-nice/">Automatically Formatting Comments With Prettier is Really Nice</a></li>
-    <li><time datetime="2020-03-18">2020-03-18</time><a href="/posts/2020-03-18-web-components-shared-styles/">Shared Styles for Web Components Are Unsolved</a></li>
-    <li><time datetime="2020-02-28">2020-02-28</time><a href="/posts/2020-02-28-reaching-inside-custom-element-inside-shadowr-dom/">You Can Reach the Child Elements of a Custom Element Even Inside Shadow DOM</a></li>
-    <li><time datetime="2020-02-26">2020-02-26</time><a href="/posts/2020-02-26-visual-studio-code-lit-html-plugin/">The Visual Studio Code lit-html Plugin is Very Helpful</a></li>
-    <li><time datetime="2020-02-26">2020-02-26</time><a href="/posts/2020-02-26-shadow-dom-forces-encapsulation/">Shadow DOM Can Force You to Think About Encapsulation</a></li>
-    <li><time datetime="2020-02-26">2020-02-26</time><a href="/posts/2020-02-26-promises-inside-lit-html-templates/">You Can Use Promises Inside lit-html Templates</a></li>
-    <li><time datetime="2020-02-09">2020-02-09</time><a href="/posts/2020-02-09-blogpost-typescript-elides-imports/">TypeScript Can Surprisingly Elide Imports</a></li>
-    <li><time datetime="2020-02-09">2020-02-09</time><a href="/posts/2020-02-09-blogpost-minimal-testing-framework-for-typescript/">Reducing Dependencies With an Absolutely Minimal Testing Framework</a></li>
-    <li><time datetime="2020-02-06">2020-02-06</time><a href="/posts/2020-02-06-blogpost-custom-elements-declarative-templates/">Using Custom Elements With Declarative Templates</a></li>
-    <li><time datetime="2015-05-26">2015-05-26</time><a href="/posts/2015-05-26-there-is-always-more-to-learn/">There is Always More to Learn</a></li>
-    <li><time datetime="2015-04-16">2015-04-16</time><a href="/posts/2015-04-16-further-forkjoinpool-and-parallel-stream-issues/">But wait, there&#39;s more! (to consider about the ForkJoinPool and parallel streams)</a></li>
-    <li><time datetime="2015-04-14">2015-04-14</time><a href="/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/">Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager</a></li>
-    <li><time datetime="2014-05-13">2014-05-13</time><a href="/posts/2014-05-13-encapsulation-does-not-imply-bloated-classes/">Encapsulation does not imply bloated classes</a></li>
-    <li><time datetime="2012-11-19">2012-11-19</time><a href="/posts/2012-11-19-streaming-audio-problems-on-android-in-sleep-mode/">Streaming Audio Problems on Android in Sleep Mode</a></li>
-    <li><time datetime="2012-04-03">2012-04-03</time><a href="/posts/2012-04-03-not-just-the-scifi/">&quot;Anyway, it&#39;s not just the sci-fi&quot;</a></li></ol>
-</section>
+<time datetime="2023-04-19">2023-04-19</time>
+
+<p>Many Linux users gravitate towards one of the big desktop environments like Gnome and KDE that cover all the bases: they offer window management, a clipboard, a launcher, window switching, etc.</p>
+<p>After using Gnome for a long time I switched to XFCE a few years ago: it felt more lightweight, was very customizable and performed very well. I'm still a big fan.</p>
+<p>However, XFCE does not support Wayland yet. With a recent upgrade to a new AMD graphics card I was technically able to try Wayland if I was prepared to migrate to a different desktop environment. Both KDE and Gnome would have been a solid option, but I wanted something else.</p>
+<p>If you frequent the <a href="https://www.reddit.com/r/unixporn/">unixporn subreddit</a> (trust me, it's safe) you will have seen some very attractive Linux desktops. Interestingly, they use a wide variety of different window managers, compositors, bars, launchers, terminals and many other tools.</p>
+<p>Given this background and a new desire and the tehnical capability to switch to Wayland, I decided to take a stab at building my own desktop environment: I would identify the best and/or prettiest tool for the each job and put together my very own system. An artisanal desktop if you will.</p>
+<p>I started by drafting all of the needs that XFCE was filling for me and that I would somehow need to replace:</p>
+<ul>
+<li>Global keyboard shortcuts</li>
+<li>Multi-Monitor support</li>
+<li>Workspaces</li>
+<li>A list of active windows that allows for quick switching between them</li>
+<li>Allow me to switch between windows with ALT-TAB</li>
+<li>Support the network manager applet, or have some alternative to it that also allows me to toggle vpns on and off</li>
+<li>Screenshot tool support, optimally Flameshot or something like it</li>
+<li>A sound widget that allows toggling betwen various outputs and manage volume in an easy way. Should interact with pipewire/pulseaudio</li>
+<li>A customizable clock (calendar weeks, custom date and time pattern) and calendar widget</li>
+<li>Some sort of wallpaper management</li>
+<li>Allow me to set custom fonts for all on screen elements (big fan of the <a href="https://rsms.me/inter/">Inter</a> font family for UIs)</li>
+<li>Desktop notifications</li>
+<li>Allow dragging and resizing windows using mouse+modifier keys and clicking <em>anywhere</em> inside the window (this is a killer capability that you can never do without again once you have tried it)</li>
+<li>Some sensible way to copy past things betwen windows</li>
+</ul>
+<p>This list turned out to be bigger than expected.</p>
+<p>Before getting to all those individual things we need to answer one fundamental question: what <em>style</em> of window management do I want? Stacking, tiling or dynamic?</p>
+<p>Stacking window managers allow windows to cover each other and be freely positioned on the screen. This is the approach that Windows, mac OS, Gnome and KDE provide. They often have additional utilities to also easily arrange windows in grids on top of the basic stacking functionality.</p>
+<p>Tiling window managers allow windows to be arranged in a grid, with many different approaches possible (and available) but with no windows overlapping any other window. Most tiling window managers allow individual windows to be converted to floating windows when an application is not compatible with the tiling paradigm. Classic examples are <a href="https://i3wm.org/">i3</a>, <a href="https://ratpoison.nongnu.org/">ratpoison</a>, and <a href="https://xmonad.org/">xmonad</a> (Haskell as a configuration language!).</p>
+<p>Dynamic window managers usually combine stacking and tiling capabilities in one program and can change layouts dynamically based on some kind of rules. Typical examples are <a href="https://awesomewm.org/">awesome</a> and <a href="https://dwm.suckless.org/">dwm</a>.</p>
+<p>I have tried most of these options in the past and even though I have learned that I am a stacking window manager afficionado, I do appreciate the neatness and automation that is possible with tiling window managers. The list of stacking window managers that is also Wayland compatible is not too large. <a href="https://hikari.acmelabs.space/">Hikari</a> looked really interesting and I may still give it a go in the future but after a brief stint in <a href="https://github.com/WayfireWM/wayfire">Wayfire</a> I settled on <a href="https://labwc.github.io/">Labwc</a>.</p>
+<p>In the next post I'll go over the steps needed to add a new window manager configuration to an existing Arch Linux setup and we'll have a look at Labwc in more detail.</p>
+
+
+</article>
 
     </main>
     <footer>
