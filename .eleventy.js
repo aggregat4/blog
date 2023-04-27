@@ -17,4 +17,8 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ static: "/" })
  
+  // Ignore posts that start with underscore as they are drafts
+  if(process.env.CI) {
+    eleventyConfig.ignores.add("**/_*.md")
+  }
 }
