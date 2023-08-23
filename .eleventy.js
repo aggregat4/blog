@@ -16,6 +16,7 @@ module.exports = function(eleventyConfig) {
   })
 
   eleventyConfig.addPassthroughCopy({ static: "/" })
+  eleventyConfig.addPassthroughCopy({ "robots.txt": "/robots.txt" })
  
   // Ignore posts that start with underscore as they are drafts
   if(process.env.CI) {
