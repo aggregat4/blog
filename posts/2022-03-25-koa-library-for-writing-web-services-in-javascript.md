@@ -10,7 +10,7 @@ The goto for backend JavaScript has long been [Express](https://expressjs.com/) 
 
 After looking at a handful of possibilities I decided to give [Koa](https://koajs.com/) a shot. It is apparently made (or started) by the creator(s) of Express and claims to be a more modern alternative with some of the learnings of working on Express baked in.
 
-Koa builds on the standard node.js HTTP server and offers a small middleware based API. The project is structured as one core library and then many different projects that contribute additional functionality that can be composed using its middleware API.
+Koa builds on the standard node.js HTTP server and offers a small middleware based API. The project is structured as one core library and many different projects that contribute additional functionality that can be composed using its middleware API.
 
 The imports for my tiny test server look like this:
 
