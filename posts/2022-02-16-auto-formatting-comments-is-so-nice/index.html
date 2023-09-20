@@ -7,7 +7,7 @@
     
     <title>Automatically Formatting Comments With Prettier is Really Nice</title>    
     <style>
-/* Local Google fonts with the help of https://google-webfonts-helper.herokuapp.com  */
+/* Local Google fonts with the help of https://gwfh.mranftl.com/fonts  */
 
 /* eb-garamond-regular - latin */
 @font-face {
@@ -23,9 +23,9 @@
 @font-face {
   font-family: 'Roboto Slab';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   src: local(''),
-       url('/fonts/roboto-slab-v23-latin-regular.woff2') format('woff2');
+       url('/fonts/roboto-slab-v33-latin-300.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -37,6 +37,7 @@
 .vertical {display: flex; flex-direction: column}
 .center {justify-content: center; align-items: center}
 .flex {flex: 1}
+
 html {
   --spacing-xs: 8px;
   --spacing-s: 12px;
@@ -60,9 +61,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-size: 16px;
-  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
-  line-height: calc(1ex / 0.32);
+  font-size: 18px;
+  
   font-family: 'Roboto Slab', serif;
 }
 ::selection {
@@ -71,7 +71,7 @@ body {
 }
 pre, code {
   font-family: monospace;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 3px;
 }
 header, footer {
@@ -89,32 +89,15 @@ footer {
   margin-bottom: var(--spacing);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'EB Garamond', serif;
-}
-
 nav {
   margin: auto;
-  padding: var(--spacing-xs);
+  padding: 0 var(--spacing-xs);
   font-family: sans-serif;
   text-transform: uppercase;
-  
   font-weight: 500;
   margin: var(--spacing);
-  /* Made with https://www.joshwcomeau.com/gradient-generator/ */
-  background-image: linear-gradient(
-    45deg,
-    hsl(355deg 56% 41%) 0%,
-    hsl(351deg 44% 41%) 13%,
-    hsl(346deg 34% 41%) 25%,
-    hsl(336deg 25% 41%) 37%,
-    hsl(315deg 15% 40%) 50%,
-    hsl(261deg 12% 42%) 63%,
-    hsl(219deg 19% 42%) 75%,
-    hsl(205deg 35% 40%) 87%,
-    hsl(197deg 60% 35%) 100%
-  );
-  
+  background-color: #333333;
+  filter: sepia(0.5);
   color: white;
   border-radius: 3px;
 }
@@ -159,25 +142,44 @@ ol {
   padding-left: 0;
 }
 
-h1, h2, h3 {
-  
-  
-  font-size: 170%;
+img {
+  width: 100%;
 }
 
-h1, h2, h3, p {
-  margin: var(--spacing-s) 0;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: calc(1ex / 0.42);
+  margin: calc(1ex / 0.42) 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  line-height: calc(1ex / 0.37);
+  margin: calc(1ex / 0.37) 0;
+}
+
+h3 {
+  font-size: 1.3em;
+  line-height: calc(1ex / 0.32);
+  margin: calc(1ex / 0.32) 0;
+}
+
+h4 {
+  font-size: 1.15em;
+}
+
+h1, h2, h3 {
   font-weight: normal;
 }
 
 /* To make <time> be close to the header, this may be a bit too rough */
 h1 {
-  margin: 0;
-}
-
-h1 {
-  border-bottom: 1px solid black;
-  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid #aaa;
+  padding-bottom: var(--spacing-s);
 }
 
 h2 {
@@ -192,8 +194,8 @@ main ol, main ul {
 .cover {
   text-align: center;
   line-height: 400%;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  border: 1px solid black;
+  
   margin-bottom: var(--spacing);
 }
 
@@ -208,6 +210,24 @@ main ol, main ul {
 
 ol.postlist li {
   margin-bottom: var(--spacing-s);
+}
+
+p, pre {
+  margin: calc(1ex / 0.32) 0;
+}
+p {
+  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
+  line-height: calc(1ex / 0.32);
+  font-size: 1em;
+}
+
+article > p:first-of-type {
+  margin-top: var(--spacing-s);
+}
+
+li {
+  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
+  line-height: calc(1ex / 0.32);
 }
 
 span.postdate {
@@ -228,6 +248,7 @@ pre {
   overflow-x: auto;
   overflow-y: hidden;
 }
+
 p code {
   background-color: var(--color-code-bg);
   padding: 0 4px;
