@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology.">
+    
+    <title>Build Your Own Desktop Environment</title>    
+    <style>
+/* Local Google fonts with the help of https://gwfh.mranftl.com/fonts  */
+
+/* eb-garamond-regular - latin */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('/fonts/eb-garamond-v25-latin-regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* roboto-slab-regular - latin */
+@font-face {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+       url('/fonts/roboto-slab-v33-latin-300.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* From monica.css */
+* {box-sizing: border-box}
+[hidden] {display: none !important}
+[disabled] {pointer-events:none; opacity: 0.3}
+.horizontal {display: flex; flex-direction: row; justify-content: space-between}
+.vertical {display: flex; flex-direction: column}
+.center {justify-content: center; align-items: center}
+.flex {flex: 1}
+
+html {
+  --spacing-xs: 8px;
+  --spacing-s: 12px;
+  --spacing: 24px;
+  --spacing-m: 36px;
+  /* Color scheme 324, page 233 from A Dictionary of Color Combinations */
+  --pompeian-red: rgb(162, 46, 55);
+  --olympic-blue: #247291;
+  --aconite-violet: #85608e;
+  --neutral-gray: #B5D1CC;
+  --color-gainsboro: #DCDCDC;
+  
+  --color-code-bg: #f5f2f0;
+}
+
+/* TODO: dark theme */
+@media (prefers-color-scheme: dark) {
+}
+
+/* Custom styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  
+  font-family: 'Roboto Slab', serif;
+}
+::selection {
+  background: var(--olympic-blue);
+  color: white;
+}
+pre, code {
+  font-family: monospace;
+  font-size: 16px;
+  border-radius: 3px;
+}
+header, footer {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+main {
+  max-width: 75ch;
+  margin: auto;
+  padding: 0 var(--spacing) var(--spacing) var(--spacing);
+}
+footer {
+  font-size: 21px;
+  margin-bottom: var(--spacing);
+}
+
+nav {
+  margin: auto;
+  padding: 0 var(--spacing-xs);
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: var(--spacing);
+  background-color: #333333;
+  filter: sepia(0.5);
+  color: white;
+  border-radius: 3px;
+}
+nav ol {
+  margin: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav ol li {
+  margin: 0 var(--spacing-s);
+}
+
+nav ol li, main ol li {
+  list-style-type: none;
+}
+
+nav a, nav a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  border-bottom: 1px dotted white;
+  padding-bottom: 2px;
+}
+
+a, a:visited, a:active {
+  text-decoration-skip-ink: auto;
+}
+
+a {
+  color: var(--olympic-blue);
+}
+
+a:visited {
+  color: var(--aconite-violet);
+}
+
+ol {
+  padding-left: 0;
+}
+
+img {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', serif;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: calc(1ex / 0.42);
+  margin: calc(1ex / 0.42) 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  line-height: calc(1ex / 0.37);
+  margin: calc(1ex / 0.37) 0;
+}
+
+h3 {
+  font-size: 1.3em;
+  line-height: calc(1ex / 0.32);
+  margin: calc(1ex / 0.32) 0;
+}
+
+h4 {
+  font-size: 1.15em;
+}
+
+h1, h2, h3 {
+  font-weight: normal;
+}
+
+/* To make <time> be close to the header, this may be a bit too rough */
+h1 {
+  border-bottom: 1px solid #aaa;
+  padding-bottom: var(--spacing-s);
+}
+
+h2 {
+  font-weight: normal;
+}
+
+main ol, main ul {
+  margin: 0;
+  padding: 0;
+}
+
+.cover {
+  text-align: center;
+  line-height: 400%;
+  border: 1px solid black;
+  
+  margin-bottom: var(--spacing);
+}
+
+.cover h1 {
+  border: none;
+  word-wrap: break-all;
+}
+
+.cover h1, .cover h2 {
+  letter-spacing: 12px;
+}
+
+ol.postlist li {
+  margin-bottom: var(--spacing-s);
+}
+
+p, pre {
+  margin: calc(1ex / 0.32) 0;
+}
+p {
+  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
+  line-height: calc(1ex / 0.32);
+  font-size: 1em;
+}
+
+article > p:first-of-type {
+  margin-top: var(--spacing-s);
+}
+
+li {
+  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
+  line-height: calc(1ex / 0.32);
+}
+
+article li {
+  line-height: calc(1ex / 0.28);
+}
+
+span.postdate {
+  display: block;
+  text-align: left;
+  margin: 0;
+  font-family: monospace;
+}
+
+article time {
+  font-style: italic;
+  font-size: 12px;
+}
+
+pre {
+  padding: var(--spacing-s);
+  background-color: var(--color-code-bg);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+p code {
+  background-color: var(--color-code-bg);
+  padding: 0 4px;
+}
+
+.postlist time {
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1;
+}
+
+@media only screen and (min-width: 1000px)  {
+  .postlist time {
+    display: inline-block;
+    text-align: right;
+    width: 19ch;
+    margin: 0 0 0 -19ch;
+    padding-right: 1ch;
+  }
+
+  .postlist a {
+    
+  }
+
+  .postlist time:after {
+    content: ' ·';
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/pages/blog-styleguide/">Styleguide</a></li>
+          <li><a href="/pages/impressum/">About</a></li>
+        </ol>
+      </nav>
+    </header>
+    <main>
+      <article>
+<h1>Build Your Own Desktop Environment</h1>
+
+<time datetime="2023-09-17">2023-09-17</time>
+
+<p>Many Linux users gravitate towards one of the big desktop environments like Gnome and KDE that cover all the bases: they offer window management, a clipboard, a launcher, window switching and much more.</p>
+<p>After using Gnome for a long time I switched to XFCE a few years ago: it felt more lightweight, was very customizable and performed very well. I'm still a big fan.</p>
+<p>I recently bought a new AMD graphics card and wanted to try Wayland instead of X.org, but XFCE doesn't support it yet. Instead of switching back to Gnome, I made my own desktop environment. I got ideas from cool Linux desktops on the <a href="https://www.reddit.com/r/unixporn/">unixporn subreddit</a> (it's SFW) and picked individual tools to make my own unique setup.</p>
+<h2>TL;DR</h2>
+<p>In this post I will describe the process of how I identified the things that I need from a desktop environment, how to start from scratch on Arch Linux and build that system up piece by piece. It's going to become clear that this is a lot more work than going with one of the established choices but the pay-off is a lot of flexibility and customizability.</p>
+<p>It can sometimes be a little bit jankier than whole-cloth complete solutions, but it is often faster in usage, much more attuned to my needs and for me at least, a lot of fun.</p>
+<h2>What do I Need?</h2>
+<p>I started by compiling a list of all the functions that XFCE provided for me and that I would need to find replacements for:</p>
+<ul>
+<li>Global keyboard shortcuts</li>
+<li>Multi-Monitor support</li>
+<li>Workspaces</li>
+<li>A list of active windows that allows for quick switching between them</li>
+<li>Allow me to switch between windows with ALT-TAB</li>
+<li>Support the network manager applet, or have some alternative to it that also allows me to toggle vpns on and off</li>
+<li>Screenshot tool support, optimally Flameshot or something like it</li>
+<li>A sound widget that allows toggling betwen various outputs and manage volume in an easy way. Should interact with pipewire/pulseaudio</li>
+<li>A customizable clock (calendar weeks, custom date and time pattern) and calendar widget</li>
+<li>Some sort of wallpaper management</li>
+<li>Allow me to set custom fonts for all on screen elements (big fan of the <a href="https://rsms.me/inter/">Inter</a> font family for UIs)</li>
+<li>Desktop notifications</li>
+<li>Allow dragging and resizing windows using mouse+modifier keys and clicking <em>anywhere</em> inside the window (this is a killer capability that you can never do without again once you have tried it)</li>
+<li>A sensible way to copy and paste things between windows.</li>
+</ul>
+<p>This list turned out to be bigger than expected.</p>
+<h2>Stacking, Tiling or Dynamic: Choose One?</h2>
+<p>Before getting to all those individual things we need to answer one fundamental question: what <em>style</em> of window management do I want? Stacking, tiling or dynamic?</p>
+<p>Stacking window managers allow windows to cover each other and be freely positioned on the screen. This is the approach that Windows, mac OS, Gnome and KDE provide. They often have additional utilities to also easily arrange windows in simple grids.</p>
+<p>Tiling window managers allow windows to be arranged in a grid, with many different approaches possible (and available) but with no windows overlapping any other window. Most tiling window managers allow individual windows to be converted to floating windows when an application is not compatible with the tiling paradigm. Classic examples are <a href="https://i3wm.org/">i3</a>, <a href="https://ratpoison.nongnu.org/">ratpoison</a>, and <a href="https://xmonad.org/">xmonad</a> (Haskell as a configuration language!).</p>
+<p>Dynamic window managers usually combine stacking and tiling capabilities in one program and can change layouts dynamically based on some kind of rules. Typical examples are <a href="https://awesomewm.org/">awesome</a> and <a href="https://dwm.suckless.org/">dwm</a>.</p>
+<p>I have tried most of these options and concluded that I am a stacking window manager person. I do appreciate the neatness and automation that is possible with tiling window managers. Some of the most well known WMs for Wayland are in fact tiling: <a href="https://swaywm.org/">Sway</a> and <a href="https://hyprland.org/">Hyprland</a>.</p>
+<p>The list of stacking window managers that is also Wayland compatible is not large. <a href="https://hikari.acmelabs.space/">Hikari</a> looks interesting but maybe a bit rough. After a brief stint in <a href="https://github.com/WayfireWM/wayfire">Wayfire</a> I settled on <a href="https://labwc.github.io/">Labwc</a>. It does not solve for fancy UI effects, but appears stable, active and offers a subset of features that seems to match what I need.</p>
+<h2>Adding a New Custom Desktop Environment in Arch Linux</h2>
+<p>Your desktop environment is typically started right after your login to the system using your display manager (or login manager). In graphical display managers like gdm you can select one of several session <em>types</em> from a list. This is where we want to add a new entry for our labwc based desktop environment.</p>
+<p>On Arch linux these sessions are stored in <code>/usr/share/xsessions</code> in separate <code>.desktop</code> files. A <code>/usr/share/xsessions/labwc.desktop</code> file could look like this:</p>
+<pre><code class="language-ini">[Desktop Entry]
+Encoding=UTF-8
+Name=labwc
+Comment=labwc
+Exec=labwc
+Type=Application
+</code></pre>
+<p>When you relogin to your system and select this session type you will have a completely empty desktop and labwc will be running quietly in the background.</p>
+<p>Congratulations! You have configured a new desktop environment.</p>
+<p>The default setup does not get you a lot of functionality out of the box. You have window management (if you can manage to start things that have windows), virtual desktop management, keybind configurations and a few other affordances.</p>
+<p>The labwc <a href="https://labwc.github.io/getting-started.html">Getting Started</a> page is a good place to go next to figure out some helpful configuration options to get you set up with a system that is a <em>little</em> bit more useful.</p>
+<h2>The Hunt for More Programs</h2>
+<p>We now need to figure out what programs and configurations we can use to restore all those capabilities that I listed in the beginning of the article. I'll take you through some of the options that I selected for my use case.</p>
+<h3>Wallpaper</h3>
+<p>Important things first: how do I set my wallpaper? You can use a variety of programs but I settled on <a href="https://github.com/swaywm/swaybg">swaybg</a> and added the following stanza to my <code>~/.config/labwc/autostart</code>:</p>
+<pre><code class="language-bash">swaybg -m fill -i somepicture.jpg  &gt;/dev/null 2&gt;&amp;1 &amp;
+</code></pre>
+<h3>Panel</h3>
+<p>By default labwc just shows an empty desktop and there are no UI elements to open menus, have a tasktray, show running programs, etc. Labwc delegates all that to external programs.</p>
+<p>I chose <a href="https://github.com/Alexays/Waybar">waybar</a> as my panel/bar implementation. It has a bunch of standard modules for functionality such as showing active windows or a tasktray, but it also allows for custom modules where you can customise what is displayed and what programs are run on what events. It can be a very powerful way to get some nice custom widgets for your particular setup.</p>
+<p>Mine currently looks like this:</p>
+<p><a href="/images/waybar-screenshot-left.png"><img src="/images/waybar-screenshot-left.png" alt="waybar screenshot"></a>
+<a href="/images/waybar-screenshot-right.png"><img src="/images/waybar-screenshot-right.png" alt="waybar screenshot"></a></p>
+<p>And this is configured through <code>~/.config/waybar/config</code>. Note that I use <a href="https://github.com/ArtsyMacaw/wlogout">wlogout</a> to provide a reboot/shutdown/logout menu from waybar.</p>
+<p>Here's my current configuration:</p>
+<pre><code class="language-json">{
+    &quot;layer&quot;: &quot;top&quot;, // Waybar at top layer
+    &quot;position&quot;: &quot;bottom&quot;, // Waybar position (top|bottom|left|right)
+    &quot;height&quot;: 34, // Waybar height (to be removed for auto height)
+    &quot;spacing&quot;: 12, // Gaps between modules (4px)
+    &quot;modules-left&quot;: [
+      &quot;wlr/taskbar&quot; 
+    ],
+    &quot;modules-right&quot;: [
+      &quot;custom/audio_idle_inhibitor&quot;,
+      &quot;memory&quot;,
+      &quot;custom/audio-switcher&quot;,
+        &quot;pulseaudio&quot;,
+        &quot;tray&quot;,
+        &quot;clock&quot;,
+        &quot;custom/logout&quot;
+    ],
+    &quot;wlr/taskbar&quot;: {
+      &quot;all-outputs&quot;: false,
+        &quot;format&quot;: &quot;{icon} {title:.15}&quot;,
+        &quot;on-click&quot;: &quot;minimize-raise&quot;,
+    },
+    &quot;memory&quot;: {
+      &quot;interval&quot;: 30,
+//    &quot;format&quot;: &quot;RAM: {used:0.1f}G/{total:0.1f}G&quot;   
+    &quot;format&quot;: &quot;RAM: {}%&quot;    
+    },
+    &quot;tray&quot;: {
+        &quot;icon-size&quot;: 21,
+        &quot;spacing&quot;: 10
+    },
+    &quot;clock&quot;: {
+        &quot;timezone&quot;: &quot;Europe/Berlin&quot;,
+        &quot;tooltip-format&quot;: &quot;&lt;big&gt;{:%Y %B}&lt;/big&gt;\n&lt;tt&gt;&lt;small&gt;{calendar}&lt;/small&gt;&lt;/tt&gt;&quot;,
+        &quot;format&quot;: &quot;{:  KW%V   %d %b   %H:%M  }&quot;,
+        &quot;on-click&quot;: &quot;orage&quot;        
+    },
+    &quot;pulseaudio&quot;: {
+        &quot;scroll-step&quot;: 2, // %, can be a float
+        &quot;format&quot;: &quot;{volume}% {icon} {format_source}&quot;,
+        &quot;format-bluetooth&quot;: &quot;{volume}% {icon} {format_source}&quot;,
+        &quot;format-bluetooth-muted&quot;: &quot; {icon} {format_source}&quot;,
+        &quot;format-muted&quot;: &quot;🔇 {format_source}&quot;,
+        &quot;format-source&quot;: &quot;{volume}%  &quot;,
+        &quot;format-source-muted&quot;: &quot; &quot;,
+        &quot;format-icons&quot;: {
+            &quot;headphone&quot;: &quot;&quot;,
+            &quot;phone&quot;: &quot;&quot;,
+            &quot;portable&quot;: &quot;&quot;,
+            &quot;car&quot;: &quot;&quot;,
+            &quot;default&quot;: [&quot;&quot;, &quot;&quot;, &quot;&quot;]
+        },
+        &quot;on-click&quot;: &quot;pavucontrol&quot;
+    },
+    &quot;custom/logout&quot;: {
+      &quot;format&quot;: &quot;⏼   {}&quot;,
+      &quot;exec&quot;: &quot;whoami&quot;,
+      &quot;on-click&quot;: &quot;wlogout -m 400&quot;
+    },
+    // Auto updating the text based on exec-on-event true does not work.
+    // A workaround to use signals to notify waybar to update the module also does not work.
+    // This pull request seems relevant: https://github.com/Alexays/Waybar/pull/1784
+    // Polling like this with an interval of every 2 seconds is suboptimal
+    &quot;custom/audio-switcher&quot;: {
+      &quot;format&quot;: &quot;Out: {}&quot;,
+      &quot;exec&quot;: &quot;get-pa-sink-name.sh&quot;,
+      // &quot;exec-on-event&quot;: true,
+      &quot;interval&quot;: 2,
+      &quot;on-click&quot;: &quot;switch-pa-sinks.sh&quot;
+     },
+     &quot;custom/audio_idle_inhibitor&quot;: {
+        &quot;format&quot;: &quot;{icon}&quot;,
+        &quot;exec&quot;: &quot;sway-audio-idle-inhibit --dry-print-both-waybar&quot;,
+        &quot;exec-if&quot;: &quot;which sway-audio-idle-inhibit&quot;,
+        &quot;return-type&quot;: &quot;json&quot;,
+        &quot;format-icons&quot;: {
+          &quot;output&quot;: &quot; &quot;,
+          &quot;input&quot;: &quot; &quot;,
+          &quot;output-input&quot;: &quot;   &quot;,
+          &quot;none&quot;: &quot;&quot;
+        }
+     }
+}
+</code></pre>
+<h3>Lock Screen</h3>
+<p>This one turned into a combination of four different utilities: <a href="https://github.com/swaywm/swayidle">swayidle</a> can run a command after a certain idle period, <a href="https://git.sr.ht/~emersion/chayang">chayang</a> can slowly fade the screen to black and <a href="https://github.com/swaywm/swaylock">swaylock</a> can lock the screen. Additionally you can use <a href="https://sr.ht/~leon_plickat/wlopm/">wlopm</a> to put the screen in power saving mode and resume it again when swayidle wakes up.</p>
+<p>This is my configuration from <code>~/.config/labwc/autostart</code>:</p>
+<pre><code class="language-sh">swayidle -w \
+  timeout 900 'chayang &amp;&amp; swaylock -f -c 000000' \
+  timeout 1800 'wlopm --off \*' \
+  resume 'wlopm --on \*' \
+  before-sleep 'swaylock -f -c 000000' &gt;/dev/null 2&gt;&amp;1 &amp;
+</code></pre>
+<h3>Notifications</h3>
+<p>There are a bunch of notification options but I chose <a href="https://github.com/emersion/mako">mako</a>.</p>
+<h3>Multi-Monitor Management</h3>
+<p>The author of mako and chayang also authors a utility called <a href="https://wayland.emersion.fr/kanshi/">kanshi</a> which can do a job similar to autorandr and automatically adapt your configuration based on the amount and kind of monitors that are active.</p>
+<p>I had some trouble figuring out what my monitors <em>are called</em> so that I can identify them with kanshi. I had to start into a <code>sway</code> session and run <code>swaymsg -t get_outputs</code> to get the names of the monitors.</p>
+<p>I have a 24 inch monitor in vertical orientation on the left and a 27 inch monitor horizontally in the center. I normally use only the center one and sometimes activate the vertical monitor on the left. I want kanshi to react to these changes dynamically so my configuration in <code>.config/kanshi/config</code> looks like this:</p>
+<pre><code class="language-text">profile single {
+  output DP-4 position 0,0 mode 2560x1440
+}
+
+profile dual {
+  output DP-4 position 1200,0 mode 2560x1440
+  output DP-1 position 0,0 mode 1920x1200 transform 90
+}
+</code></pre>
+<h3>Workspaces</h3>
+<p>Waybar has a built-in workspace switcher module but it is not compatible with labwc (yet?). A particular Wayland protocol needs to be implemented I think. The built-in labwc switcher is sufficient for my purposes.</p>
+<h3>Trayicons</h3>
+<p>I enjoy having a few applications running in the background with an icon in the &quot;tray&quot; or a similar construct. The network manager applet is most important here, but the Jetbrains launcher, 1Password and Flame shot are also very useful.</p>
+<p>Waybar has a built in tray widget that seems to work well. Any application that you want to have active and visible in the tray needs to be started in your <code>~/.config/labwc/autostart</code> file:</p>
+<pre><code class="language-bash">1password --silent &gt;/dev/null 2&gt;&amp;1 &amp;
+nm-applet --indicator &gt;/dev/null 2&gt;&amp;1 &amp;
+jetbrains-toolbox --minimize &gt;/dev/null 2&gt;&amp;1 &amp;
+# Flameshot _does_ support wayland (see https://github.com/flameshot-org/flameshot/blob/master/docs/Sway%20and%20wlroots%20support.md) but it only recognizes sway as a value for XDG_CURRENT_DESKTOP
+# Also starting it soon during start will prevent the tray icon from showing up, hence the sleep
+sleep 2 &amp;&amp; XDG_CURRENT_DESKTOP=sway flameshot &gt;/dev/null 2&gt;&amp;1
+</code></pre>
+<p>I include the special casing for flameshot as it is still something we need to do as long as not all kinks are worked out in the Wayland support of various apps.</p>
+<h3>Fonts</h3>
+<p>Labwc has the ability to configure fonts for window titles and other places that are managed by it. This configuration is part of the <code>~/.config/labwc/rc.xml</code> file:</p>
+<pre><code class="language-xml">&lt;theme&gt;
+    &lt;name&gt;Numix&lt;/name&gt;
+    &lt;cornerRadius&gt;6&lt;/cornerRadius&gt;
+    &lt;font place=&quot;ActiveWindow&quot;&gt;
+      &lt;name&gt;Inter&lt;/name&gt;
+      &lt;size&gt;11&lt;/size&gt;
+      &lt;slant&gt;normal&lt;/slant&gt;
+      &lt;weight&gt;bold&lt;/weight&gt;
+    &lt;/font&gt;
+    &lt;font place=&quot;MenuItem&quot;&gt;
+      &lt;name&gt;Inter&lt;/name&gt;
+      &lt;size&gt;11&lt;/size&gt;
+      &lt;slant&gt;normal&lt;/slant&gt;
+      &lt;weight&gt;normal&lt;/weight&gt;
+    &lt;/font&gt;
+    &lt;font place=&quot;OnScreenDisplay&quot;&gt;
+      &lt;name&gt;Inter&lt;/name&gt;
+      &lt;size&gt;11&lt;/size&gt;
+      &lt;slant&gt;normal&lt;/slant&gt;
+      &lt;weight&gt;normal&lt;/weight&gt;
+    &lt;/font&gt;
+  &lt;/theme&gt;
+</code></pre>
+<h3>Keyboard Shortcuts</h3>
+<p>The same configuration files allow binding keys to certain function. I was able to map the media keys on my keyboard to <code>pactl</code> invocations to lower, raise and mute the volume:</p>
+<pre><code class="language-xml">    &lt;keybind key=&quot;XF86_AudioLowerVolume&quot;&gt;
+      &lt;action name=&quot;Execute&quot; command=&quot;pactl set-sink-volume 0 -5%&quot; /&gt;
+    &lt;/keybind&gt;
+    &lt;keybind key=&quot;XF86_AudioRaiseVolume&quot;&gt;
+      &lt;action name=&quot;Execute&quot; command=&quot;pactl set-sink-volume 0 +5%&quot; /&gt;
+    &lt;/keybind&gt;
+    &lt;keybind key=&quot;XF86_AudioMute&quot;&gt;
+      &lt;action name=&quot;Execute&quot; command=&quot;pactl set-sink-mute 0 toggle&quot; /&gt;
+    &lt;/keybind&gt;
+</code></pre>
+<p>Extremely important for me is the ability to easily move windows with the mouse without having to target the tiny resize handles of windows. Labwc supports ALT + left mouse drag for window dragging in any location and ALT + right drag for resizing windows in any location.</p>
+<h3>Keyboard Layout</h3>
+<p>I had to configure what keyboard layout and what variant to use, this was simply done through two environment variables in <code>~/.config/labwc/environment</code>. These are my specific settings, adapt as needed of course:</p>
+<pre><code class="language-sh">XKB_DEFAULT_LAYOUT=us
+XKB_DEFAULT_VARIANT=de_se_fi
+</code></pre>
+<h3>Secrets Management</h3>
+<p>In order to have session based secrets and SSH passphrase mangement I start <code>gnome-keyring-daemon</code> with the following lines in <code>~/.config/labwc/autostart</code>:</p>
+<pre><code class="language-sh">dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
+gnome-keyring-daemon --start --components=pkcs11,secrets,ssh -d
+</code></pre>
+<p>It's important to also make sure the <code>SSH_AUTH_SOCK</code> environment variable is set in <code>~/.config/labwc/environment</code>:</p>
+<pre><code class="language-sh">SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+</code></pre>
+<h2>Various Other Wayland Tools</h2>
+<p>In addition to the desktop environment it may be useful to have native Wayland alternatives for certain tools. Many X only tools can work under Wayland with Xwayland (for example IntelliJj Idea) but a lot of tools have native Wayland support built in.</p>
+<h3>Foot Terminal</h3>
+<p>I installed the <a href="https://codeberg.org/dnkl/foot/wiki">foot terminal emulator</a> since it seems to be fast and it is wayland native. This terminal requires servers you access over ssh to have the termininfo package installed. My particular remote Debian server has a <code>foot-terminfo</code> package that works well.</p>
+
+
+</article>
+
+    </main>
+    <footer>
+      <!-- dotted diple -->
+      ⸓
+    </footer>
+  </body>
+</html>
