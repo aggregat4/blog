@@ -8,7 +8,13 @@ Many Linux users gravitate towards one of the big desktop environments like Gnom
 
 After using Gnome for a long time I switched to XFCE a few years ago: it felt more lightweight, was very customizable and performed very well. I'm still a big fan.
 
-I bought a new AMD graphics card and wanted to try Wayland instead of X.org, but XFCE doesn't support it yet. Instead of switching back to Gnome, I made my own desktop environment. I got ideas from cool Linux desktops on the [unixporn subreddit](https://www.reddit.com/r/unixporn/) (it's SFW) and picked individual tools to make my own unique setup.
+I recently bought a new AMD graphics card and wanted to try Wayland instead of X.org, but XFCE doesn't support it yet. Instead of switching back to Gnome, I made my own desktop environment. I got ideas from cool Linux desktops on the [unixporn subreddit](https://www.reddit.com/r/unixporn/) (it's SFW) and picked individual tools to make my own unique setup.
+
+## TL;DR
+
+In this post I will describe the process of how I identified the things that I need from a desktop environment, how to start from scratch on Arch Linux and build that system up piece by piece. It's going to become clear that this is a lot more work than going with one of the established choices but the pay-off is a lot of flexibility and customizability.
+
+It can sometimes be a little bit jankier than whole-cloth complete solutions, but it is often faster in usage, much more attuned to my needs and for me at least, a lot of fun.
 
 ## What do I Need?
 
@@ -187,7 +193,7 @@ This one turned into a combination of four different utilities: [swayidle](https
 
 This is my configuration from `~/.config/labwc/autostart`:
 
-```
+```sh
 swayidle -w \
   timeout 900 'chayang && swaylock -f -c 000000' \
   timeout 1800 'wlopm --off \*' \
@@ -207,7 +213,7 @@ I had some trouble figuring out what my monitors *are called* so that I can iden
 
 I have a 24 inch monitor in vertical orientation on the left and a 27 inch monitor horizontally in the center. I normally use only the center one and sometimes activate the vertical monitor on the left. I want kanshi to react to these changes dynamically so my configuration in `.config/kanshi/config` looks like this:
 
-```
+```text
 profile single {
   output DP-4 position 0,0 mode 2560x1440
 }
@@ -290,7 +296,7 @@ Extremely important for me is the ability to easily move windows with the mouse 
 
 I had to configure what keyboard layout and what variant to use, this was simply done through two environment variables in `~/.config/labwc/environment`. These are my specific settings, adapt as needed of course:
 
-```
+```sh
 XKB_DEFAULT_LAYOUT=us
 XKB_DEFAULT_VARIANT=de_se_fi
 ```
@@ -299,14 +305,14 @@ XKB_DEFAULT_VARIANT=de_se_fi
 
 In order to have session based secrets and SSH passphrase mangement I start `gnome-keyring-daemon` with the following lines in `~/.config/labwc/autostart`:
 
-```
+```sh
 dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
 gnome-keyring-daemon --start --components=pkcs11,secrets,ssh -d
 ```
 
 It's important to also make sure the `SSH_AUTH_SOCK` environment variable is set in `~/.config/labwc/environment`:
 
-```
+```sh
 SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 ```
 
@@ -317,4 +323,3 @@ In addition to the desktop environment it may be useful to have native Wayland a
 ### Foot Terminal
 
 I installed the [foot terminal emulator](https://codeberg.org/dnkl/foot/wiki) since it seems to be fast and it is wayland native. This terminal requires servers you access over ssh to have the termininfo package installed. My particular remote Debian server has a `foot-terminfo` package that works well.
-
