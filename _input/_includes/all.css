@@ -1,14 +1,3 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology.">
-    {% if norobots %}
-    <meta name="robots" content="noindex">
-    {% endif %}
-    <title>{{title}}</title>    
-    <style>
 /* Local Google fonts with the help of https://gwfh.mranftl.com/fonts  */
 
 /* eb-garamond-regular - latin */
@@ -30,16 +19,6 @@
        url('/fonts/roboto-slab-v33-latin-300.woff2') format('woff2');
   font-display: swap;
 }
-
-{#
-/* From monica.css */
-* {box-sizing: border-box}
-[hidden] {display: none !important}
-[disabled] {pointer-events:none; opacity: 0.3}
-.horizontal {display: flex; flex-direction: row; justify-content: space-between}
-.vertical {display: flex; flex-direction: column}
-.center {justify-content: center; align-items: center}
-.flex {flex: 1} #}
 
 /********** reset from https://andy-bell.co.uk/a-more-modern-css-reset/ **********/
 
@@ -124,7 +103,6 @@ html {
   --aconite-violet: #85608e;
   --neutral-gray: #B5D1CC;
   --color-gainsboro: #DCDCDC;
-  {# --color-code-bg: #eeeeee; #}
   --color-code-bg: #f5f2f0;
 
   --link-color: var(--olympic-blue);
@@ -284,29 +262,33 @@ p + ul {
   margin-top: var(--spacing-s);
 }
 
-article .postdate {
-  display: block;
-  text-align: left;
-  margin: 0;
-  font-family: monospace;
+
+article {
+  .postdate {
+    display: block;
+    text-align: left;
+    margin: 0;
+    font-family: monospace;
+  }
+
+  time {
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  pre {
+    padding: var(--spacing-s);
+    background-color: var(--color-code-bg);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  p code {
+    background-color: var(--color-code-bg);
+    padding: 0 4px;
+  }
 }
 
-article time {
-  font-style: italic;
-  font-size: 12px;
-}
-
-article pre {
-  padding: var(--spacing-s);
-  background-color: var(--color-code-bg);
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-article p code {
-  background-color: var(--color-code-bg);
-  padding: 0 4px;
-}
 
 ol.postlist time {
   display: block;
@@ -329,33 +311,8 @@ ol.postlist li {
     padding-right: 1ch;
   }
 
-  .postlist a {
-    
-  }
 
   .postlist time:after {
     content: ' ·';
   }
 }
-
-    </style>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ol>
-          <li><a href="/">Home</a></li>
-          <li><a href="/pages/blog-styleguide/">Styleguide</a></li>
-          <li><a href="/pages/impressum/">About</a></li>
-        </ol>
-      </nav>
-    </header>
-    <main>
-      {{ content | safe }}
-    </main>
-    <footer>
-      <!-- dotted diple -->
-      ⸓
-    </footer>
-  </body>
-</html>
