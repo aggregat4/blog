@@ -95,6 +95,7 @@ I chose [waybar](https://github.com/Alexays/Waybar) as my panel/bar implementati
 Mine currently looks like this:
 
 [![waybar screenshot](/images/waybar-screenshot-left.png)](/images/waybar-screenshot-left.png)
+
 [![waybar screenshot](/images/waybar-screenshot-right.png)](/images/waybar-screenshot-right.png)
 
 And this is configured through `~/.config/waybar/config`. Note that I use [wlogout](https://github.com/ArtsyMacaw/wlogout) to provide a reboot/shutdown/logout menu from waybar.
