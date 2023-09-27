@@ -7,7 +7,7 @@
     
     <title>The Visual Studio Code lit-html Plugin is Very Helpful</title>    
     <style>
-/* Local Google fonts with the help of https://gwfh.mranftl.com/fonts  */
+      /* Local Google fonts with the help of https://gwfh.mranftl.com/fonts  */
 
 /* eb-garamond-regular - latin */
 @font-face {
@@ -29,14 +29,77 @@
   font-display: swap;
 }
 
-/* From monica.css */
-* {box-sizing: border-box}
-[hidden] {display: none !important}
-[disabled] {pointer-events:none; opacity: 0.3}
-.horizontal {display: flex; flex-direction: row; justify-content: space-between}
-.vertical {display: flex; flex-direction: column}
-.center {justify-content: center; align-items: center}
-.flex {flex: 1}
+/********** reset from https://andy-bell.co.uk/a-more-modern-css-reset/ **********/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/********** end reset **********/
+
 
 html {
   --spacing-xs: 8px;
@@ -49,8 +112,10 @@ html {
   --aconite-violet: #85608e;
   --neutral-gray: #B5D1CC;
   --color-gainsboro: #DCDCDC;
-  
   --color-code-bg: #f5f2f0;
+
+  --link-color: var(--olympic-blue);
+  --visited-link-color: var(--aconite-violet);
 }
 
 /* TODO: dark theme */
@@ -59,10 +124,7 @@ html {
 
 /* Custom styles */
 body {
-  margin: 0;
-  padding: 0;
   font-size: 18px;
-  
   font-family: 'Roboto Slab', serif;
 }
 ::selection {
@@ -89,181 +151,165 @@ footer {
   margin-bottom: var(--spacing);
 }
 
+
 nav {
-  margin: auto;
-  padding: 0 var(--spacing-xs);
   font-family: sans-serif;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 400;
   margin: var(--spacing);
-  background-color: #333333;
-  filter: sepia(0.5);
-  color: white;
   border-radius: 3px;
+  border: 1px #333333 solid;
+  box-shadow: 2px 2px 3px 0 #bbbbbb;
 }
 nav ol {
-  margin: 0;
-  bottom: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 nav ol li {
-  margin: 0 var(--spacing-s);
+  margin: var(--spacing-s);
 }
-
-nav ol li, main ol li {
+nav ol li {
   list-style-type: none;
 }
-
 nav a, nav a:visited {
-  color: white;
+  color: black;
   text-decoration: none;
 }
-
 nav a:hover {
-  border-bottom: 1px dotted white;
+  border-bottom: 1px dotted black;
   padding-bottom: 2px;
 }
 
-a, a:visited, a:active {
-  text-decoration-skip-ink: auto;
-}
 
 a {
-  color: var(--olympic-blue);
+  color: var(--link-color);
 }
-
 a:visited {
-  color: var(--aconite-violet);
+  color: var(--visited-link-color);
 }
 
-ol {
-  padding-left: 0;
-}
 
 img {
   width: 100%;
 }
 
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
+  font-weight: normal;
 }
-
 h1 {
   font-size: 2em;
   line-height: calc(1ex / 0.42);
-  margin: calc(1ex / 0.42) 0;
+  margin: calc(1ex / 0.42) 0 1ex 0;
 }
-
 h2 {
   font-size: 1.5em;
   line-height: calc(1ex / 0.37);
-  margin: calc(1ex / 0.37) 0;
+  margin: calc(1ex / 0.37) 0 1ex 0;
 }
-
 h3 {
   font-size: 1.3em;
   line-height: calc(1ex / 0.32);
-  margin: calc(1ex / 0.32) 0;
+  margin: calc(1ex / 0.32) 0 1ex 0;
 }
-
 h4 {
   font-size: 1.15em;
+  line-height: calc(1ex / 0.28);
+  margin: calc(1ex / 0.28) 0 1ex 0;
 }
 
-h1, h2, h3 {
-  font-weight: normal;
-}
-
-/* To make <time> be close to the header, this may be a bit too rough */
-h1 {
-  border-bottom: 1px solid #aaa;
-  padding-bottom: var(--spacing-s);
-}
-
-h2 {
-  font-weight: normal;
-}
 
 main ol, main ul {
   margin: 0;
   padding: 0;
 }
 
+
 .cover {
   text-align: center;
   line-height: 400%;
   border: 1px solid black;
-  
   margin-bottom: var(--spacing);
 }
-
 .cover h1 {
   border: none;
   word-wrap: break-all;
 }
-
 .cover h1, .cover h2 {
   letter-spacing: 12px;
 }
 
-ol.postlist li {
-  margin-bottom: var(--spacing-s);
-}
 
-p, pre {
-  margin: calc(1ex / 0.32) 0;
-}
-p {
-  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
+article p {
   line-height: calc(1ex / 0.32);
   font-size: 1em;
 }
 
-article > p:first-of-type {
+article ul,
+article ol {
+  line-height: calc(1ex / 0.28);
+  font-size: 1em;
+}
+
+article p,
+article pre,
+article ul,
+article ol {
+  margin: calc(1ex / 0.32) 0 0 0;
+}
+
+article p:first-of-type,
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+p + ul {
   margin-top: var(--spacing-s);
 }
 
-li {
-  /* From https://www.smashingmagazine.com/2020/07/css-techniques-legibility/#top */
-  line-height: calc(1ex / 0.32);
+
+article {
+  .postdate {
+    display: block;
+    text-align: left;
+    margin: 0;
+    font-family: monospace;
+  }
+
+  time {
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  pre {
+    padding: var(--spacing-s);
+    background-color: var(--color-code-bg);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  p code {
+    background-color: var(--color-code-bg);
+    padding: 0 4px;
+  }
 }
 
-article li {
-  line-height: calc(1ex / 0.28);
-}
 
-span.postdate {
-  display: block;
-  text-align: left;
-  margin: 0;
-  font-family: monospace;
-}
-
-article time {
-  font-style: italic;
-  font-size: 12px;
-}
-
-pre {
-  padding: var(--spacing-s);
-  background-color: var(--color-code-bg);
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-p code {
-  background-color: var(--color-code-bg);
-  padding: 0 4px;
-}
-
-.postlist time {
+ol.postlist time {
   display: block;
   font-family: monospace;
   font-size: 12px;
   line-height: 1;
 }
+ol.postlist li {
+  margin-bottom: var(--spacing-s);
+  list-style-type: none;
+}
+
 
 @media only screen and (min-width: 1000px)  {
   .postlist time {
@@ -274,9 +320,6 @@ p code {
     padding-right: 1ch;
   }
 
-  .postlist a {
-    
-  }
 
   .postlist time:after {
     content: ' ·';
