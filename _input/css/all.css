@@ -104,6 +104,7 @@ textarea:not([rows]) {
   --neutral-gray: #B5D1CC;
   --color-gainsboro: #DCDCDC;
   --color-code-bg: #f5f2f0;
+  --max-readable-column-width: 75ch;
 
   --link-color: var(--olympic-blue);
   --visited-link-color: var(--aconite-violet);
@@ -136,7 +137,7 @@ footer {
 }
 
 main {
-  max-width: 75ch;
+  max-width: var(--max-readable-column-width);
   margin: auto;
   padding: 0 var(--spacing) var(--spacing) var(--spacing);
 
@@ -317,18 +318,24 @@ ol.postlist {
     li {
       display: flex;
       align-items: center;  
+
+      time {
+        display: inline-block;
+        text-align: right;
+        width: 19ch;
+        margin: 0 0 0 -19ch;
+        padding-right: 1ch;
+  
+        &:after {
+          content: ' ·';
+        }  
+      }
+      
+      a {
+        /* I had to add a max width for the a element because it was becoming wider than its container */
+        max-width: calc(var(--max-readable-column-width) - calc(2 * var(--spacing)));
+      }
     }
 
-    time {
-      display: inline-block;
-      text-align: right;
-      width: 19ch;
-      margin: 0 0 0 -19ch;
-      padding-right: 1ch;
-
-      &:after {
-        content: ' ·';
-      }  
-    }
   }  
 }
