@@ -12,11 +12,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
-    "@11tyrocks/eleventy-plugin-lightningcss": "^1.1.2",
-    "browserlist": "^1.0.1",
-    "lightningcss": "^1.22.0",
-    "toml": "^3.0.0"
+    "@11ty/eleventy": "2.0.1",
+    "browserlist": "1.0.1",
+    "lightningcss": "1.22.0",
+    "toml": "3.0.0"
   },
   "browserlist": [
     "last 12 Chrome versions",

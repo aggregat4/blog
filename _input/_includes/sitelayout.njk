@@ -8,7 +8,12 @@
     <meta name="robots" content="noindex">
     {% endif %}
     <title>{{title}}</title>    
-    <link rel="stylesheet" href="/css/all.css">
+    {% set css %}
+      {% include "_input/css/all.css" %}
+    {% endset %}
+  <style>
+    {{ css | lightningcss | safe }}
+  </style>
   </head>
   <body>
     <header>
