@@ -22,25 +22,19 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter("lightningcss", (inputCode) => {
-    try {
-      const options = {
-        filename: "",
-        code: Buffer.from(inputCode),
-        minify: true,
-        sourceMap: false,
-        targets,
-        // Supports CSS nesting
-        drafts: {
-          nesting: true,
-        },
-      };
-      let { code } = transform(options);
-      // console.log(code.toString());
-      return code.toString();
-    } catch (error) {
-      console.error(error);
-      return code;
-    }
+    const options = {
+      filename: "",
+      code: Buffer.from(inputCode),
+      minify: true,
+      sourceMap: false,
+      targets,
+      // Supports CSS nesting
+      drafts: {
+        nesting: true,
+      },
+    };
+    let { code } = transform(options);
+    return code.toString();
   });
 
   eleventyConfig.setFrontMatterParsingOptions({
