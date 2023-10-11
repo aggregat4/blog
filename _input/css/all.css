@@ -10,6 +10,15 @@
   font-display: swap;
 }
 
+/* eb-garamond-500 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/eb-garamond-v27-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 /* roboto-slab-regular - latin */
 @font-face {
   font-family: 'Roboto Slab';
@@ -195,7 +204,12 @@ a:visited {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'EB Garamond', serif;
-  font-weight: normal;
+}
+h1, h2 {
+  font-weight: 400;
+}
+h3, h4, h5, h6 {
+  font-weight: 500;
 }
 h1 {
   font-size: 2em;
@@ -290,10 +304,6 @@ article {
     overflow-x: auto;
     overflow-y: hidden;
   }
-
-  img {
-    width: 100%;
-  }  
 }
 
 
