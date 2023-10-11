@@ -5,6 +5,7 @@ const {
   browserslistToTargets,
   composeVisitors,
 } = require("lightningcss");
+const markdownIt = require("markdown-it");
 
 /*
 This configuration file is picked up by filename convention.
@@ -46,6 +47,16 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("_input/fonts");
   eleventyConfig.addPassthroughCopy("_input/images");
   eleventyConfig.addPassthroughCopy({ "robots.txt": "/robots.txt" });
+
+  // Custom markdown configuration as per https://www.11ty.dev/docs/languages/markdown/#default-options
+  // specifically wanted the typography options for smart quotes and en/em dashes
+  let options = {
+    html: true,
+    breaks: true,
+    linkify: true,
+    typographer: true,
+  };
+  eleventyConfig.setLibrary("md", markdownIt(options));
 
   // Ignore posts that start with underscore as they are drafts
   if (process.env.CI) {
