@@ -27,7 +27,7 @@ I started by compiling a list of all the functions that XFCE provided for me and
 - Allow me to switch between windows with ALT-TAB
 - Support the network manager applet, or have some alternative to it that also allows me to toggle vpns on and off
 - Screenshot tool support, optimally Flameshot or something like it
-- A sound widget that allows toggling betwen various outputs and manage volume in an easy way. Should interact with pipewire/pulseaudio
+- A sound widget that allows toggling between various outputs and manage volume in an easy way. Should interact with pipewire/pulseaudio
 - A customizable clock (calendar weeks, custom date and time pattern) and calendar widget
 - Some sort of wallpaper management
 - Allow me to set custom fonts for all on screen elements (big fan of the [Inter](https://rsms.me/inter/) font family for UIs)
