@@ -11,15 +11,6 @@
   font-display: swap;
 }
 
-/* eb-garamond-500 - latin */
-/* @font-face {
-  font-display: swap;
-  font-family: 'EB Garamond';
-  font-style: normal;
-  font-weight: 500;
-  src: url('/fonts/eb-garamond-v27-latin-500.woff2') format('woff2');
-} */
-
 /* roboto-slab-regular - latin */
 @font-face {
   font-display: swap;
@@ -30,6 +21,7 @@
        url('/fonts/roboto-slab-v33-latin-300.woff2') format('woff2');
   font-display: swap;
 }
+
 
 /********** reset from https://andy-bell.co.uk/a-more-modern-css-reset/ **********/
 
@@ -74,7 +66,6 @@ h3, h4 {
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
-  color: currentColor;
 }
 
 /* Make images easier to work with */
@@ -111,14 +102,17 @@ textarea:not([rows]) {
   /* Color scheme 324, page 233 from A Dictionary of Color Combinations */
   --pompeian-red: rgb(162, 46, 55);
   --olympic-blue: #247291;
+  --olympic-blue-intensive: #154457;
   --aconite-violet: #85608e;
+  --aconite-violet-dark: #492552;
   --neutral-gray: #B5D1CC;
   --color-gainsboro: #DCDCDC;
   --color-code-bg: #f5f2f0;
+
   --max-readable-column-width: 75ch;
 
-  --link-color: var(--olympic-blue);
-  --visited-link-color: var(--aconite-violet);
+  --link-color: var(--olympic-blue-intensive);
+  --visited-link-color: var(--aconite-violet-dark);
 }
 
 /* TODO: dark theme */
@@ -198,9 +192,10 @@ nav {
 
 a {
   color: var(--link-color);
-}
-a:visited {
-  color: var(--visited-link-color);
+
+  &:visited {
+    color: var(--visited-link-color);
+  }
 }
 
 
