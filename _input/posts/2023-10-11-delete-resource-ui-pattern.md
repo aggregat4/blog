@@ -12,6 +12,6 @@ When you click on `Delete...` the button is replaced with two more buttons: `Can
 
 ![Screenshot of an example bookmark with the delete button pressed and the inline confirmation visible.](/images/screenshot-delicious-delete.png)
 
-The mouse cursor -- which has not moved -- is positioned over the cancel operation so accidental clicks are fine. Clicking on "Delete!" button then really deletes the bookmark.
+The mouse cursor -- which has not moved -- is positioned over the cancel operation so accidental clicks are fine. Clicking on the "Delete!" button really deletes the bookmark.
 
 There is no sudden interruption in contrast with a modal dialog or a popup menu and you can completely _ignore_ the operation and move on.
