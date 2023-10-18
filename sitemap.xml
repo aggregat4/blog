@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2012-04-03-not-just-the-scifi/</loc>
+            <lastmod>2012-04-03T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2012-11-19-streaming-audio-problems-on-android-in-sleep-mode/</loc>
+            <lastmod>2012-11-19T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2014-05-13-encapsulation-does-not-imply-bloated-classes/</loc>
+            <lastmod>2014-05-13T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/</loc>
+            <lastmod>2015-04-14T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2015-04-16-further-forkjoinpool-and-parallel-stream-issues/</loc>
+            <lastmod>2015-04-16T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2015-05-26-there-is-always-more-to-learn/</loc>
+            <lastmod>2015-05-26T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-02-06-blogpost-custom-elements-declarative-templates/</loc>
+            <lastmod>2020-02-06T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-02-09-blogpost-minimal-testing-framework-for-typescript/</loc>
+            <lastmod>2020-02-09T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-02-09-blogpost-typescript-elides-imports/</loc>
+            <lastmod>2020-02-09T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-02-26-promises-inside-lit-html-templates/</loc>
+            <lastmod>2020-02-26T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-02-26-shadow-dom-forces-encapsulation/</loc>
+            <lastmod>2020-02-26T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-02-26-visual-studio-code-lit-html-plugin/</loc>
+            <lastmod>2020-02-26T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-02-28-reaching-inside-custom-element-inside-shadowr-dom/</loc>
+            <lastmod>2020-02-28T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2020-03-18-web-components-shared-styles/</loc>
+            <lastmod>2020-03-18T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2022-02-16-auto-formatting-comments-is-so-nice/</loc>
+            <lastmod>2022-02-16T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2022-03-25-koa-library-for-writing-web-services-in-javascript/</loc>
+            <lastmod>2022-03-20T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2023-09-17-build-your-own-desktop-environment/</loc>
+            <lastmod>2023-09-17T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/posts/2023-10-11-delete-resource-ui-pattern/</loc>
+            <lastmod>2023-10-11T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/</loc>
+            <lastmod>2023-10-18T07:00:21.333Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/pages/blog-styleguide/</loc>
+            <lastmod>2023-10-18T07:00:21.333Z</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://blog.boristerzic.com/pages/impressum/</loc>
+            <lastmod>2023-10-18T07:00:21.333Z</lastmod>
+        </url>
+    
+</urlset>
