@@ -130,7 +130,15 @@ body {
   color: white;
 }
 
-header, footer {
+header {
+  margin: auto;
+  max-width: var(--max-readable-column-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer {
   margin: auto;
   display: flex;
   justify-content: center;
@@ -161,32 +169,36 @@ nav {
   border-radius: 3px;
   border: 1px #333333 solid;
   box-shadow: 2px 2px 3px 0 #bbbbbb;
-  
+
   ol {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     padding: 0;
     margin: 0;
     
     li {
       margin: var(--spacing-s);
-    }
-
-    li {
       list-style-type: none;
+
+      svg {
+        width: 30px;
+      }
+    }
+
+    a {
+      /* This is needed because anchor elements are inline by default and get strange heights dependending on what is in them.
+         Setting them to block helps but then the contents are not aligned.
+         Setting them to center in this case makes all the nav elements nicely vertically aligned. */
+      display: flex;
+    }
+
+    a, a:visited {
+      color: black;
+      text-decoration: none;
     }
   }
-
-  a, a:visited {
-    color: black;
-    text-decoration: none;
-  }
-
-  a:hover {
-    border-bottom: 1px dotted black;
-    padding-bottom: 2px;
-  }  
 }
 
 

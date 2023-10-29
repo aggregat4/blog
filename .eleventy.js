@@ -46,6 +46,12 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("_input/fonts");
   eleventyConfig.addPassthroughCopy("_input/images");
+  eleventyConfig.addPassthroughCopy({
+    "logo-designs/logo-a-small-bold-export3.png": "favicon.png",
+  });
+  eleventyConfig.addPassthroughCopy({
+    "logo-designs/logo-a-small-bold-export3.svg": "images/logo.svg",
+  });
   eleventyConfig.addPassthroughCopy({ "robots.txt": "/robots.txt" });
 
   // Custom markdown configuration as per https://www.11ty.dev/docs/languages/markdown/#default-options
