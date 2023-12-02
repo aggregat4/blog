@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Boris Terzic">
-    <meta property="og:title" content="Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager">
+    <meta property="og:title" content="The Strong Legalism of Code">
     
     <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
     <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
     
     
-    <meta property="og:url" content="https://blog.boristerzic.com/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/">
+    <meta property="og:url" content="https://blog.boristerzic.com/posts/2023-12-02-the-strong-legalism-of-code/">
     
-    <title>Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager</title>    
-    <link rel="canonical" href="https://blog.boristerzic.com/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/" />
+    <title>The Strong Legalism of Code</title>    
+    <link rel="canonical" href="https://blog.boristerzic.com/posts/2023-12-02-the-strong-legalism-of-code/" />
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="/favicon.png">
     
@@ -34,20 +34,20 @@
     </header>
     <main>
       <article>
-<h1>Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager</h1>
+<h1>The Strong Legalism of Code</h1>
 
-<time datetime="2015-04-14">2015-04-14</time>
+<time datetime="2023-12-02">2023-12-02</time>
 
-<p>In Java 7 the <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html">fork/join framework</a> was introduced as an additional tool in the concurrency toolbox. It can be used to conveniently solve problems that lend themselves to easy subdivision, in a parallell fashion without having to worry about any concurrency mechanics.\n<br>
-Aside from being a convenient user facing feature, this framework has also become the basis for other JDK implementations that require such a parallellization approach. Features like <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html"><code>Arrays.parallelSort()</code></a> and <a href="https://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html">parallel streams</a>. And there lies the rub.</p>
-<p>The fork/join framework uses a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html"><code>ForkJoinPool</code></a> to take the parallel tasks and execute them on a bunch of threads. By default it will use its own implementation of a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.ForkJoinWorkerThreadFactory.html"><code>ForkJoinPool.ForkJoinWorkerThreadFactory</code></a> to construct the threads to be used, but it can be configured with a custom factory in its constructor.</p>
-<p>In the case of JDK features such as parallel streams there is no API to specify this factory. In fact the JDK will default to using a system wide, static ForkJoinPool that is stored inside of the <code>common</code> field of the ForkJoinPool class. This pool is initialized in the method <code>makeCommonPool</code> of the same class.</p>
-<p>This common pool turns out to be constructed in a very specific, very peculiar way. As Doug Lea explains in a <a href="http://cs.oswego.edu/pipermail/concurrency-interest/2013-December/012123.html">post</a> to the <a href="http://cs.oswego.edu/pipermail/concurrency-interest/">concurrency-interest</a> mailing list, there was a concern that these “easy” ways to parallelize certain workloads could put undue strain on certain production systems and it was felt to be necessary, or at least desirable, to allow administrators to limit the amount of implicit parallelism exhibited by the JVM in certain production scenarios.</p>
-<p>One result of this policy is that the logic for instantiating the common pool defaults to using a different, very conservative, ForkJoinWorkerThreadFactory implementation called the <a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/diff/e2bdddb8bedf/src/share/classes/java/util/concurrent/ForkJoinPool.java"><code>InnocuousForkJoinWorkerThreadFactory</code></a> when it <em>detects that a SecurityManager is active</em>. This implementation runs worker threads with no permissions. This allows “innocuous” parallelism where something is calculated for example, but prevents parallel tasks from doing anything that requires permissions such as opening files.</p>
-<p>This leads us to the first problem: when running with a security manager you get a different configuration of the common pool and you may not be able to run your parallel code, depending on its required permissions. Luckily there is a workaround for this. The ForkJoinPool <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html">documents</a> a system property called <code>java.util.concurrent.ForkJoinPool.common.threadFactory</code> that allows you to specifically set the ThreadFactory implementation to be used. With this you can provide your own implementation that runs with normal permissions and Bob is your uncle.</p>
-<p>Unless you are running in a WebStart environment. Wait, does anyone still use WebStart? Yes, sadly, we do. Since JDK 7u45 <a href="https://bugs.openjdk.java.net/browse/JDK-8023821">“insecure properties set in a JNLP file are no longer passed to the application”</a>, unless you sign your JNLP file. The ThreadFactory property is not a secure property. Either you sign your JNLP files (which is incredibly cumbersome, and in the case of required customer customization, often not economically feasible) or you wrap that property in a <code>jnlp.</code> prefixed “secure” property and translate that inside your application into the right property.</p>
-<p>Assuming that you did this (and we did) it will sadly still not work. When running in a Java WebStart environment, <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/javaws/developersguide/faq.html#s211">a user-level classloader is used to load all resources specified in the JNLP file</a> and as a result you can no longer use <code>Class.forName</code> or <code>ClassLoader.getSystemClassLoader</code> to load resources and classes. The ForkJoinPool uses <code>ClassLoader.getSystemClassLoader</code> to try to load the custom ThreadFactory you set using the system property and will fail.</p>
-<p>The executive summary is that if you are running your application using Java WebStart you <em>must</em> construct your ForkJoinPool instances with a custom ThreadFactory if you want to parallelize any operation that requires security permissions and you <em>should not</em> use parallel streams for such operations. At work we have decided not to use parallel streams at all until we have a usable workaround for the described problem.</p>
+<p><a href="https://futureofcoding.org/episodes/065">Interpreting the Rule(s) of Code by Laurence Diver</a> was a recent episode of Future of Coding, discussing <a href="https://law.mit.edu/pub/interpretingtherulesofcode/release/4">a paper by the same name</a>, which discusses the strong legalism inherent in code. It claims that code by its very nature, by its strong “rulishness”, is far more legalistic than actual law.</p>
+<p>This episode and the content of the paper hit a nerve. It came at the same time as being subjected to the vagaries and constraints of software in a bank and the helplessness of the people working with it to be able to change it or make it do what they want to. All because this particular case – although perfectly valid and desired by the staff – hadn’t been considered beforehand and was therefore impossible to accomplish within the confines of the program.</p>
+<p>Imagine an older, completely analog version of this process: if a person deems the request valid and either had (or was given) the authority to approve it, they could simply annotate the necessary documents and other people in other parts of the process would take it into account.</p>
+<p>This option often disappears as we increasingly digitise these workflows and use software that is rigid and cannot cover all possible cases and also does not explain why it cannot accommodate them. This increasing legalism is an insidious phenomenon that we should be aware of and we should consider when building new systems.</p>
+<p>Laurence Diver goes into more detail about the reasons <em>why</em> code tends to exhibit certain legalisms, what forces driver programmers in one direction or another and how we might try to think about code and the process of producing it in ways that mitigate the risk for strong legalism. In the conclusion he summarises his findings as follows:</p>
+<blockquote>
+<p>In constitutional democracies we tend to want to resist the blanket heteronomy of rules passed down from sovereign legislators. Not only do we require that such rules exhibit certain basic legitimising characteristics, but we also aim for procedural safeguards that allow us to interpret and contest them in practice. We should take the same stance against producers of code that directly constitutes, limits, and structures so much of our environment, behaviour, and actions. One promising way to do this is to critically interrogate its <strong>text</strong>, during the process of production, from the perspective of legality and the rule of law.</p>
+</blockquote>
+<p>Ivan and Jimmy in the podcast have an insightful discussion about the implications of the paper for how we build new software. Specifically, how we can write better environments or tools that allow for more malleable, less legalistic software.</p>
+<p>This particular episode cemented The Future of Coding as my new favorite podcast. Highly recommended.</p>
 
 
 </article>
