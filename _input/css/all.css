@@ -252,6 +252,7 @@ h4 {
   h1 {
     border: none;
     word-wrap: break-all;
+    font-size: 3.5em;
   }
 
   h1, h2 {
@@ -331,6 +332,8 @@ article {
 
 
 ol.postlist {
+  margin-top: var(--spacing-s);
+
   time {
     display: block;
     font-family: monospace;
