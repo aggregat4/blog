@@ -2,6 +2,7 @@
 layout: post.njk
 title: The Strong Legalism of Code
 date: 2023-12-02
+description: The Future of Coding podcast reviewed a paper by Laurence Diver explains how the inherent "rulishness" of code creates a "strong legalism" that is significantly strictre than actual law itself.
 ---
 
 [Interpreting the Rule(s) of Code by Laurence Diver](https://futureofcoding.org/episodes/065) was a recent episode of Future of Coding, discussing [a paper by the same name](https://law.mit.edu/pub/interpretingtherulesofcode/release/4), which discusses the strong legalism inherent in code. It claims that code by its very nature, by its strong "rulishness", is far more legalistic than actual law.
