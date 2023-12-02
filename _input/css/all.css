@@ -112,7 +112,8 @@ textarea:not([rows]) {
   --max-readable-column-width: 75ch;
 
   --link-color: var(--olympic-blue-intensive);
-  --visited-link-color: var(--aconite-violet-dark);
+  /* --visited-link-color: var(--aconite-violet-dark); */
+  --visited-link-color: var(--olympic-blue-intensive);
 }
 
 /* TODO: dark theme */
@@ -270,7 +271,7 @@ p + ul {
 
 
 article {
-  p, pre, ul, ol {
+  p, pre, ul, ol, blockquote {
     margin: calc(1ex / 0.32) 0 0 0;
   }
 
@@ -312,6 +313,19 @@ article {
     background-color: var(--color-code-bg);
     overflow-x: auto;
     overflow-y: hidden;
+  }
+
+
+  blockquote {
+    padding: var(--spacing-s);
+    border-left: 2px solid var(--olympic-blue);
+    background-color: var(--color-code-bg);
+    font-style: italic;
+    margin-left: calc(-1 * var(--spacing-s) - 2px);
+
+    p:first-of-type {
+      margin: 0;
+    }
   }
 }
 
