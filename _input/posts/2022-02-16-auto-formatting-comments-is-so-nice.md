@@ -8,7 +8,7 @@ Many IDEs and editors still do not attempt to format multi-line comments. Possib
 
 I've always found this frustrating in my own projects, specifically in the mostly TypeScript codebase of [Dendriform](https://github.com/aggregat4/dendriform) that I have been working on lately.
 
-After actually googling for this I found the [prettier-plugin-jsdoc](https://github.com/hosseinmd/prettier-plugin-jsdoc) prettier plugin. I configured it to use an 80 column with for JSDoc comments in `prettierrc.js`.
+After actually googling for this I found the [prettier-plugin-jsdoc](https://github.com/hosseinmd/prettier-plugin-jsdoc) plugin. I configured it to use an 80 column width for JSDoc comments in `prettierrc.js`.
 
 This plugin can automatically format jsdoc comments and it specifically supports wrapping multi-line comments. It conserves existing newlines. It seems good enough and the benefit of having automated formatting clearly outweighs any hand crafting I had to do before.
 
@@ -22,7 +22,7 @@ module.exports = {
   "plugins": ["prettier-plugin-jsdoc"],
 }
 ```
-Note: other settings have been omitted for brevity.
+_Note: other settings have been omitted for brevity._
 
 To enable autoformatting in Visual Studio Code I set the following in my user `settings.json`:
 
@@ -34,4 +34,4 @@ To enable autoformatting in Visual Studio Code I set the following in my user `s
   },
 }
 ```
-Note: other settings have been omitted for brevity.
+_Note: other settings have been omitted for brevity._
