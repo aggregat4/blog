@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Boris Terzic">
-    <meta property="og:title" content="Shared Styles for Web Components Are Unsolved">
+    <meta property="og:title" content="Capturing Go Run Output in Bash Environment Variables">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
+    <meta name="description" content="go run outputs to stdout and stderr. How to capture this output in bash environment variables?">
+    <meta property="og:description" content="go run outputs to stdout and stderr. How to capture this output in bash environment variables?">
     
     
-    <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-03-18-web-components-shared-styles/">
+    <meta property="og:url" content="https://blog.boristerzic.com/posts/2024-09-94-capturing-go-run-output-in-bash-environment-variables/">
     
-    <title>Shared Styles for Web Components Are Unsolved</title>    
-    <link rel="canonical" href="https://blog.boristerzic.com/posts/2020-03-18-web-components-shared-styles/" />
+    <title>Capturing Go Run Output in Bash Environment Variables</title>    
+    <link rel="canonical" href="https://blog.boristerzic.com/posts/2024-09-94-capturing-go-run-output-in-bash-environment-variables/" />
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="/favicon.png">
     
@@ -34,13 +34,27 @@
     </header>
     <main>
       <article>
-<h1>Shared Styles for Web Components Are Unsolved</h1>
+<h1>Capturing Go Run Output in Bash Environment Variables</h1>
 
-<time datetime="2020-03-18">2020-03-18</time>
+<time datetime="2024-09-04">2024-09-04</time>
 
-<p>It seems like common shared styles for web components are not completely solved yet. There is a cavalcade of sort of maybe options with <a href="https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/">a good overview on Smashing Magazine</a>.</p>
-<p>The two “best” options at the moment seem to be the inclusion of a <code>&lt;link&gt;</code> element before the inline styles for the web component that points to a shared stylesheet or to actually inline all the shared styles together with the specific styles.</p>
-<p>I have currently opted for the latter by having one function return all the common styles and calling it from each component, but I will try the former solution as well.</p>
+<p>When creating test scripts for Go applications, it is often necessary to capture the output of <code>go run</code> in bash environment variables. This is particularly useful when the output contains information that needs to be used in subsequent commands or when the output is a success or error message that needs to be checked.</p>
+<p>Doing a simple</p>
+<pre><code class="language-bash">FOO=$(go run main.go)
+</code></pre>
+<p>Did not work for me, the output got written to the terminal instead of being captured in the environment variable.</p>
+<p>The program itself did the following:</p>
+<pre><code class="language-go">package main
+
+func main() {
+	println(&quot;Hello, World!&quot;)
+}
+</code></pre>
+<p>This <code>println</code> builtin writes to <code>stderr</code>, which is why the output was not captured in the environment variable.</p>
+<p>So instead we need to do the following:</p>
+<pre><code class="language-bash">FOO=$(go run main.go 2&gt;&amp;1)
+</code></pre>
+<p>The <code>2&gt;&amp;1</code> redirects the <code>stderr</code> to <code>stdout</code>.</p>
 
 
 </article>

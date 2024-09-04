@@ -97,18 +97,23 @@
         </url>
     
         <url>
+            <loc>https://blog.boristerzic.com/posts/2024-09-94-capturing-go-run-output-in-bash-environment-variables/</loc>
+            <lastmod>2024-09-04T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
             <loc>https://blog.boristerzic.com/</loc>
-            <lastmod>2023-12-04T12:53:55.741Z</lastmod>
+            <lastmod>2024-09-04T07:49:51.303Z</lastmod>
         </url>
     
         <url>
             <loc>https://blog.boristerzic.com/pages/blog-styleguide/</loc>
-            <lastmod>2023-12-04T12:53:55.741Z</lastmod>
+            <lastmod>2024-09-04T07:49:51.303Z</lastmod>
         </url>
     
         <url>
             <loc>https://blog.boristerzic.com/pages/impressum/</loc>
-            <lastmod>2023-12-04T12:53:55.741Z</lastmod>
+            <lastmod>2024-09-04T07:49:51.303Z</lastmod>
         </url>
     
 </urlset>
