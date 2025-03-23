@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Boris Terzic">
-    <meta property="og:title" content="Styleguide">
+    <meta property="og:title" content="Experiences With AI-Assisted Coding">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
+    <meta name="description" content="Some of my experiences writing code with the help of the Cursor AI code assistant.">
+    <meta property="og:description" content="Some of my experiences writing code with the help of the Cursor AI code assistant.">
     
     
-    <meta property="og:url" content="https://blog.boristerzic.com/pages/blog-styleguide/">
+    <meta property="og:url" content="https://blog.boristerzic.com/posts/2025-03-23-cursor-ai-coding-experience/">
     
-    <title>Styleguide</title>    
-    <link rel="canonical" href="https://blog.boristerzic.com/pages/blog-styleguide/" />
+    <title>Experiences With AI-Assisted Coding</title>    
+    <link rel="canonical" href="https://blog.boristerzic.com/posts/2025-03-23-cursor-ai-coding-experience/" />
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="/favicon.png">
     
@@ -33,15 +33,49 @@
       </nav>
     </header>
     <main>
-      <h1>Styleguide</h1>
-<h2>Capitalization of Programming Frameworks, Libraries and Standards</h2>
-<p>In general products and services are capitalized based on how the originator intended it. Some specific examples are:</p>
+      <article>
+<h1>Experiences With AI-Assisted Coding</h1>
+
+<time datetime="2025-03-23">2025-03-23</time>
+
+<p>I’ve been using Cursor’s AI code assistant for a while now, and I wanted to share my experiences with it. Here are my observations about what works well, what doesn’t, and some important considerations when using AI-assisted coding.</p>
+<h2>The Good</h2>
+<p>The AI assistant excels at being a flexible scaffolding generator. For example, when migrating from Vite to esbuild, you can ask it to help convert your build configuration and project structure at any point. It can analyze your existing Vite config, suggest equivalent esbuild settings, update import paths, and restructure your build pipeline - tasks that would be tedious to do manually and impossible with traditional project templates that only work at project creation. This makes it much more versatile than typical scaffolding tools, as it can help restructure and reconfigure your project as your needs evolve.</p>
+<p>It’s also particularly good at refactoring or making changes in files where you need to replace text in a somewhat regular pattern, but not so regular that a regular expression would suffice.</p>
+<p>For example, when converting hardcoded colors in CSS to custom properties, it can intelligently suggest meaningful variable names based on the context. Tweaking these names afterwards is a much easier task than manually finding and exstracting the relevant places. Given CSS like <code>.header { background: #2a4d69; color: #fff }</code>, it might suggest converting it to <code>.header { background: var(--color-primary-dark); color: var(--color-white) }</code>, inferring from the class name and usage that the blue shade is likely a primary brand color.</p>
+<h2>The Bad</h2>
+<p>There are some significant downsides to be aware of:</p>
+<p>The AI will sometimes hallucinate new APIs or API versions when you ask it to do something that would require them but they don’t exist. This can be frustrating to debug because the AI is very good at suggesting plausible API calls that seem like they should work.</p>
+<p>It can get stuck in loops, trying to fix something in one of a few ways it seems to come up with, and keeps iterating on failures with the same nonsensical approaches. While Cursor’s limit of 25 iterations per session helps, it’s a rather brute-force solution. It would be better if it could bail out sooner and ask for help.</p>
+<p>Perhaps most importantly, you cannot depend on the AI to do sensible things. Even if a solution works, there’s no guarantee there won’t be massive follow-up issues. Common problems include:</p>
 <ul>
-<li>JavaScript</li>
-<li>TypeScript</li>
-<li>ES6: an abbreviation for the “ECMAScript 6th edition” specification which is implemented by JavaScript</li>
-<li>Git</li>
+<li>Completely unmaintainable code (like writing custom SQL statements in integration tests when you already have an abstraction for this)</li>
+<li>Unperformant code (like resending a complete document every time you type a single character using y.js to sync - it works, but it’s horrible)</li>
+<li>Code with serious security issues (while the AI sometimes detects potential security issues, this is basically luck of the draw - there’s no guarantee of exhaustive security checking)</li>
 </ul>
+<h2>Observations</h2>
+<p>The AI, like a human developer, benefits greatly from supporting structure and conventions:</p>
+<ul>
+<li>Clear guidance on what tools and features to use (or not use) - this could be achieved with custom Cursor rules. For example <code>Use pnpm instead of npm for package management</code> or <code>Use CSS nesting when writing styles</code>.</li>
+<li>Having linting integrated into your IDE as a sanity check that Cursor can try to solve automatically</li>
+<li>Having tests to verify implementations are sensible, even if you let the AI write those tests</li>
+<li>Having types helps the AI use and extend existing APIs with fewer errors</li>
+</ul>
+<p>The AI tends to write more and more code without much unprompted refactoring. You need to actively consider whether refactoring is needed. Common issues include:</p>
+<ul>
+<li>Rewriting utility methods instead of reusing them</li>
+<li>Duplicating large parts of similar features, leading to a diverging codebase over time</li>
+</ul>
+<p>The AI benefits from architectural guidance - both having an architecture it can follow and conform to, but also telling it concretely how to solve something. For example, in an editor, it’s helpful to make the AI implement formatting features as commands, not just because they’re then potentially undoable, but because it forces a command structure that helps maintain a sane code structure.</p>
+<p>The AI excels at regular, structured problems that either have precedence in your codebase or are obviously present in training data. Anything outside of that can be problematic and requires human intervention. For example, it could competently add a password reset flow to my existing Go server with login screen, but it failed completely at showing all today’s appointments for an Exchange ICAL calendar (it didn’t know how to deal with Microsoft’s insane timezone handling or recurring appointments).</p>
+<h2>Conclusions</h2>
+<p>For me, AI support is clearly helpful in handling more regular coding tasks and making faster progress in personal coding projects. It’s way faster to edit code than to write it from scratch, even for “easy” code.</p>
+<p>It’s particularly useful for writing tests and extending an existing test suite.</p>
+<p>The caveats I listed above all apply and as soon as the problem becomes less regular, more exotic or interacts with very specific or peculiar systems, the AI will start breaking down.</p>
+<p>And finally, you must review and understand all code if you intend for this to be even marginally serious. Otherwise, you’ll have security, correctness, performance, maintainability and other problems.</p>
+
+
+</article>
 
     </main>
     <footer>
