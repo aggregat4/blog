@@ -11,14 +11,14 @@
   font-display: swap;
 }
 
-/* roboto-slab-regular - latin */
+/* merriweather-regular - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Roboto Slab';
+  font-family: 'Merriweather';
   font-style: normal;
   font-weight: 400;
   src: local(''),
-       url('/fonts/roboto-slab-v34-latin-regular.woff2') format('woff2');
+       url('/fonts/merriweather-v31-latin-regular.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -48,10 +48,10 @@ figure, blockquote, dl, dd {
 /* Set core body defaults */
 body {
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.55;
   font-size: 18px;
-  font-family: 'Roboto Slab', serif;
-  font-weight: 400;
+  font-family: 'Merriweather', serif;
+  font-weight: 500;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -270,12 +270,11 @@ p + ul {
 
 article {
   p, pre, ul, ol, blockquote {
-    margin: calc(1ex / 0.32) 0 0 0;
+    margin: calc(1ex / 0.42) 0 0 0;
   }
 
   p {
-    line-height: calc(1ex / 0.32);
-    font-size: 1em;
+    /* line-height: calc(1ex / 0.32); */
 
     code {
       background-color: var(--color-code-bg);
@@ -283,10 +282,9 @@ article {
     }
   }
   
-  ul, ol {
+  /* ul, ol {
     line-height: calc(1ex / 0.28);
-    font-size: 1em;
-  }
+  } */
 
   .postdate {
     display: block;
