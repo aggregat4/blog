@@ -13,7 +13,7 @@ Imagine an older, completely analog version of this process: if a person deems t
 
 This option often disappears as we increasingly digitise these workflows and use software that is rigid and cannot cover all possible cases and also does not explain why it cannot accommodate them. This increasing legalism is an insidious phenomenon that we should be aware of and we should consider when building new systems.  
 
-Laurence Diver goes into more detail about the reasons _why_ code tends to exhibit certain legalisms, what forces driver programmers in one direction or another and how we might try to think about code and the process of producing it in ways that mitigate the risk for strong legalism. In the conclusion he summarises his findings as follows:
+Laurence Diver goes into more detail about the reasons _why_ code tends to exhibit certain legalisms, what forces drive programmers in one direction or another and how we might try to think about code and the process of producing it in ways that mitigate the risk for strong legalism. In the conclusion he summarises his findings as follows:
 
 > In constitutional democracies we tend to want to resist the blanket heteronomy of rules passed down from sovereign legislators. Not only do we require that such rules exhibit certain basic legitimising characteristics, but we also aim for procedural safeguards that allow us to interpret and contest them in practice. We should take the same stance against producers of code that directly constitutes, limits, and structures so much of our environment, behaviour, and actions. One promising way to do this is to critically interrogate its **text**, during the process of production, from the perspective of legality and the rule of law.
 

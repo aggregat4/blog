@@ -11,9 +11,7 @@ I've been using Cursor's AI code assistant for a while now, and I wanted to shar
 
 The AI assistant excels at being a flexible scaffolding generator. For example, when migrating from Vite to esbuild, you can ask it to help convert your build configuration and project structure at any point. It can analyze your existing Vite config, suggest equivalent esbuild settings, update import paths, and restructure your build pipeline - tasks that would be tedious to do manually and impossible with traditional project templates that only work at project creation. This makes it much more versatile than typical scaffolding tools, as it can help restructure and reconfigure your project as your needs evolve.
 
-It's also particularly good at refactoring or making changes in files where you need to replace text in a somewhat regular pattern, but not so regular that a regular expression would suffice. 
-
-For example, when converting hardcoded colors in CSS to custom properties, it can intelligently suggest meaningful variable names based on the context. Tweaking these names afterwards is a much easier task than manually finding and exstracting the relevant places. Given CSS like `.header { background: #2a4d69; color: #fff }`, it might suggest converting it to `.header { background: var(--color-primary-dark); color: var(--color-white) }`, inferring from the class name and usage that the blue shade is likely a primary brand color. 
+It's also particularly good at refactoring or making changes in files where you need to replace text in a somewhat regular pattern, but not so regular that a regular expression would suffice. For example, when converting hardcoded colors in CSS to custom properties it not only finds all hardcoded colors but it can also suggest meaningful variable names based on the context. Tweaking these names afterwards is a much easier task than manually finding and extracting the relevant places.
 
 ## The Bad
 
