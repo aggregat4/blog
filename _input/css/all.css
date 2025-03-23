@@ -16,9 +16,9 @@
   font-display: swap;
   font-family: 'Roboto Slab';
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   src: local(''),
-       url('/fonts/roboto-slab-v33-latin-300.woff2') format('woff2');
+       url('/fonts/roboto-slab-v34-latin-regular.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -49,6 +49,9 @@ figure, blockquote, dl, dd {
 body {
   min-height: 100vh;
   line-height: 1.5;
+  font-size: 18px;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -118,12 +121,6 @@ textarea:not([rows]) {
 
 /* TODO: dark theme */
 @media (prefers-color-scheme: dark) {
-}
-
-/* Custom styles */
-body {
-  font-size: 18px;
-  font-family: 'Roboto Slab', serif;
 }
 
 ::selection {
