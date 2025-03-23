@@ -107,18 +107,23 @@
         </url>
     
         <url>
+            <loc>https://blog.boristerzic.com/posts/2024-12-13-go-struct-embedding/</loc>
+            <lastmod>2024-12-13T00:00:00.000Z</lastmod>
+        </url>
+    
+        <url>
             <loc>https://blog.boristerzic.com/</loc>
-            <lastmod>2024-09-25T07:52:15.792Z</lastmod>
+            <lastmod>2025-03-23T10:40:01.176Z</lastmod>
         </url>
     
         <url>
             <loc>https://blog.boristerzic.com/pages/blog-styleguide/</loc>
-            <lastmod>2024-09-25T07:52:15.792Z</lastmod>
+            <lastmod>2025-03-23T10:40:01.176Z</lastmod>
         </url>
     
         <url>
             <loc>https://blog.boristerzic.com/pages/impressum/</loc>
-            <lastmod>2024-09-25T07:52:15.792Z</lastmod>
+            <lastmod>2025-03-23T10:40:01.176Z</lastmod>
         </url>
     
 </urlset>
