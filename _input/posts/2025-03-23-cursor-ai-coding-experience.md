@@ -5,13 +5,17 @@ date: 2025-03-23
 description: Some of my experiences writing code with the help of the Cursor AI code assistant.
 ---
 
-I've been using Cursor's AI code assistant for a while now, and I wanted to share my experiences with it. Here are my observations about what works well, what doesn't, and some important considerations when using AI-assisted coding.
+I've been using Cursor's AI code assistant for a while now and here are my experiences with it: things that worked well, things that definitely didn't and some assorted observations.
 
 ## The Good
 
-The AI assistant excels at being a flexible scaffolding generator. For example, when migrating from Vite to esbuild, you can ask it to help convert your build configuration and project structure at any point. It can analyze your existing Vite config, suggest equivalent esbuild settings, update import paths, and restructure your build pipeline - tasks that would be tedious to do manually and impossible with traditional project templates that only work at project creation. This makes it much more versatile than typical scaffolding tools, as it can help restructure and reconfigure your project as your needs evolve.
+The AI assistant excels at being a flexible scaffolding generator. In a quick ad hoc project we had started with a vite build setup, but I asked it to convert it to a simpler esbuild config. It suggested equivalent esbuild settings, updated import paths, and restructured the build pipeline - tasks that would be tedious to do manually and impossible with traditional project templates that only work at project creation.
 
-It's also particularly good at refactoring or making changes in files where you need to replace text in a somewhat regular pattern, but not so regular that a regular expression would suffice. For example, when converting hardcoded colors in CSS to custom properties it not only finds all hardcoded colors but it can also suggest meaningful variable names based on the context. Tweaking these names afterwards is a much easier task than manually finding and extracting the relevant places.
+This makes it much more versatile than typical scaffolding tools as it can help restructure and reconfigure your project as your needs evolve and keep doing it even when you have long since left the pristine state of the greenfield project.
+
+It's particularly good at refactoring or making changes in files where you need to replace text in a somewhat regular pattern, but not so regular that a regular expression would suffice. 
+
+I asked it to convert hardcoded colors in a CSS file to custom properties and it not only found all hardcoded colors but often proposed surprisingly decent names (`--color-primary-accent` instead of just `--color-1`). Tweaking these names afterwards is a much more pleasant task than manually finding and extracting all the relevant occurrences.
 
 ## The Bad
 
@@ -21,10 +25,12 @@ The AI will sometimes hallucinate new APIs or API versions when you ask it to do
 
 It can get stuck in loops, trying to fix something in one of a few ways it seems to come up with, and keeps iterating on failures with the same nonsensical approaches. While Cursor's limit of 25 iterations per session helps, it's a rather brute-force solution. It would be better if it could bail out sooner and ask for help.
 
-Perhaps most importantly, you cannot depend on the AI to do sensible things. Even if a solution works, there's no guarantee there won't be massive follow-up issues. Common problems include:
-- Completely unmaintainable code (like writing custom SQL statements in integration tests when you already have an abstraction for this)
-- Unperformant code (like resending a complete document every time you type a single character using y.js to sync - it works, but it's horrible)
-- Code with serious security issues (while the AI sometimes detects potential security issues, this is basically luck of the draw - there's no guarantee of exhaustive security checking)
+Perhaps most importantly, you cannot depend on the AI to do sensible things. Even if a solution works, there's no guarantee there won't be massive follow-up issues. 
+
+Common problems include:
+- Completely unmaintainable code: I often had it (re)writing custom SQL statements in integration tests when the program already had a repository abstraction covering all those cases.
+- Inperformant code: it resorted to resending a complete document every time the user typed a single character in a text editor project that used `y.js` to sync - it works, but it's a horrible solution.
+- Code with serious security issues: while the AI sometimes proactivel warns and codes against  potential security issues (like validating form input), this is basically luck of the draw - it will just as often come up with an incomplete, and insecure, solution.
 
 ## Observations
 
@@ -32,23 +38,15 @@ The AI, like a human developer, benefits greatly from supporting structure and c
 
 - Clear guidance on what tools and features to use (or not use) - this could be achieved with custom Cursor rules. For example `Use pnpm instead of npm for package management` or `Use CSS nesting when writing styles`.
 - Having linting integrated into your IDE as a sanity check that Cursor can try to solve automatically
-- Having tests to verify implementations are sensible, even if you let the AI write those tests
+- Having tests to verify that implementations are sensible, even if you let the AI write those tests
 - Having types helps the AI use and extend existing APIs with fewer errors
 
-The AI tends to write more and more code without much unprompted refactoring. You need to actively consider whether refactoring is needed. Common issues include:
-- Rewriting utility methods instead of reusing them
-- Duplicating large parts of similar features, leading to a diverging codebase over time
+One subtle trap is code bloat. The AI rarely refactors proactively. You have to constantly ask yourself: 'Could this be simpler? Is it rewriting a utility I already have?' Otherwise, you end up with duplicated logic and diverging features - technical debt generated at machine speed.
 
-The AI benefits from architectural guidance - both having an architecture it can follow and conform to, but also telling it concretely how to solve something. For example, in an editor, it's helpful to make the AI implement formatting features as commands, not just because they're then potentially undoable, but because it forces a command structure that helps maintain a sane code structure.
+Don't just ask it to do something; tell it how. Having an architecture it can follow and conform to, but also telling it concretely how to solve something. For example, in an editor, it's helpful to make the AI implement formatting features as commands, not just because they're then potentially undoable, but because it forces a command structure that helps maintain a sane code structure.
 
-The AI excels at regular, structured problems that either have precedence in your codebase or are obviously present in training data. Anything outside of that can be problematic and requires human intervention. For example, it could competently add a password reset flow to my existing Go server with login screen, but it failed completely at showing all today's appointments for an Exchange ICAL calendar (it didn't know how to deal with Microsoft's insane timezone handling or recurring appointments).
+The AI excels at regular, structured problems that either have precedence in your codebase or are obviously present in training data. Anything outside of that can be problematic and requires human intervention. It handled adding a standard password reset flow to my Go backend competently, following the existing patterns. But ask it to parse an Exchange ICAL feed to show today's appointments? Complete meltdown. Microsoft's baroque timezone handling and recurring event logic proved too much; it simply couldn't navigate that specific, peculiar system.
 
-## Conclusions
+## The Fear
 
-For me, AI support is clearly helpful in handling more regular coding tasks and making faster progress in personal coding projects. It's way faster to edit code than to write it from scratch, even for "easy" code.
-
-It's particularly useful for writing tests and extending an existing test suite.
-
-The caveats I listed above all apply and as soon as the problem becomes less regular, more exotic or interacts with very specific or peculiar systems, the AI will start breaking down.
-
-And finally, you must review and understand all code if you intend for this to be even marginally serious. Otherwise, you'll have security, correctness, performance, maintainability and other problems.
+So, where does this leave me? There's no denying the tangible benefits. For churning through boilerplate, refactoring patterned code, or getting a test suite off the ground quickly in a personal project, Cursor AI is a genuine accelerant. It lets me focus on the more interesting parts faster. Yet, alongside this efficiency brews a persistent concern. With every problem I delegate, every solution I accept without the actual struggle, I worry: are my own fundamental coding skills slowly eroding? Is the convenience making me faster today at the cost of becoming a less capable, less resourceful developer tomorrow? I fear the answer may actually be "yes".
