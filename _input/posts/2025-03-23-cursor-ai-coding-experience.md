@@ -29,8 +29,8 @@ Perhaps most importantly, you cannot depend on the AI to do sensible things. Eve
 
 Common problems include:
 - Completely unmaintainable code: I often had it (re)writing custom SQL statements in integration tests when the program already had a repository abstraction covering all those cases.
-- Inperformant code: it resorted to resending a complete document every time the user typed a single character in a text editor project that used `y.js` to sync - it works, but it's a horrible solution.
-- Code with serious security issues: while the AI sometimes proactivel warns and codes against  potential security issues (like validating form input), this is basically luck of the draw - it will just as often come up with an incomplete, and insecure, solution.
+- Inefficient code: it resorted to resending a complete document every time the user typed a single character in a text editor project that used `y.js` to sync - it works, but it's a horrible solution.
+- Code with serious security issues: while the AI sometimes proactively warns and codes against  potential security issues (like validating form input), this is basically luck of the draw - it will just as often come up with an incomplete, and insecure, solution.
 
 ## Observations
 
@@ -43,9 +43,9 @@ The AI, like a human developer, benefits greatly from supporting structure and c
 
 One subtle trap is code bloat. The AI rarely refactors proactively. You have to constantly ask yourself: 'Could this be simpler? Is it rewriting a utility I already have?' Otherwise, you end up with duplicated logic and diverging features - technical debt generated at machine speed.
 
-Don't just ask it to do something; tell it how. Having an architecture it can follow and conform to, but also telling it concretely how to solve something. For example, in an editor, it's helpful to make the AI implement formatting features as commands, not just because they're then potentially undoable, but because it forces a command structure that helps maintain a sane code structure.
+Don't just ask it to do something; tell it how. Having an architecture it can follow and conform to, but also telling it concretely how to solve something. For example, in an editor, it's helpful to make the AI implement formatting features as commands, not just because they're then potentially reversible, but because it forces a command structure that helps maintain a sane code structure.
 
-The AI excels at regular, structured problems that either have precedence in your codebase or are obviously present in training data. Anything outside of that can be problematic and requires human intervention. It handled adding a standard password reset flow to my Go backend competently, following the existing patterns. But ask it to parse an Exchange ICAL feed to show today's appointments? Complete meltdown. Microsoft's baroque timezone handling and recurring event logic proved too much; it simply couldn't navigate that specific, peculiar system.
+The AI excels at regular, structured problems that either have precedence in your codebase or are obviously present in training data. Anything outside of that can be problematic and requires human intervention. It handled adding a standard password reset flow to my Go backend competently, following the existing patterns. But ask it to parse an Exchange `ICAL` feed to show today's appointments? Complete meltdown. Microsoft's baroque timezone handling and recurring event logic proved too much; it simply couldn't navigate that specific, peculiar system.
 
 ## The Fear
 
