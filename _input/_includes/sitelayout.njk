@@ -28,7 +28,7 @@
     {{ css | lightningcss | safe }}
   </style>
   </head>
-  <body>
+  <body class="{% if page.fileSlug %}page-other{% else %}index{% endif %}">
     <header>
       <nav>
         <ol>

@@ -1,28 +1,3 @@
-/* Local Google fonts with the help of https://gwfh.mranftl.com/fonts  */
-
-/* eb-garamond-regular - latin */
-@font-face {
-  font-display: swap;
-  font-family: 'EB Garamond';
-  font-style: normal;
-  font-weight: 400;
-  src: local(''),
-       url('/fonts/eb-garamond-v25-latin-regular.woff2') format('woff2');
-  font-display: swap;
-}
-
-/* merriweather-regular - latin */
-@font-face {
-  font-display: swap;
-  font-family: 'Merriweather';
-  font-style: normal;
-  font-weight: 400;
-  src: local(''),
-       url('/fonts/merriweather-v31-latin-regular.woff2') format('woff2');
-  font-display: swap;
-}
-
-
 /********** reset from https://andy-bell.co.uk/a-more-modern-css-reset/ **********/
 
 /* Box sizing rules */
@@ -50,8 +25,7 @@ body {
   min-height: 100vh;
   line-height: 1.55;
   font-size: 18px;
-  font-family: 'Merriweather', serif;
-  font-weight: 500;
+  font-family: system-ui, sans-serif;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -129,10 +103,10 @@ textarea:not([rows]) {
 }
 
 header {
-  margin: auto;
-  max-width: var(--max-readable-column-width);
+  /* margin: auto; */
+  /* max-width: var(--max-readable-column-width); */
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 
@@ -148,14 +122,15 @@ footer {
 }
 
 main {
-  max-width: var(--max-readable-column-width);
   margin: auto;
   padding: 0 var(--spacing) var(--spacing) var(--spacing);
 }
 
+body.page-other main {
+  max-width: var(--max-readable-column-width);
+}
 
 nav {
-  font-family: sans-serif;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -205,33 +180,29 @@ a {
 
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'EB Garamond', serif;
-}
-h1, h2 {
-  font-weight: 400;
-}
-h3, h4, h5, h6 {
-  font-weight: 400;
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  margin: 1.6ex 0 1ex 0;
 }
 h1 {
   font-size: 2em;
-  line-height: calc(1ex / 0.42);
-  margin: calc(1ex / 0.42) 0 1ex 0;
+  /* line-height: calc(1ex / 0.42);
+  margin: calc(1ex / 0.42) 0 1ex 0; */
 }
 h2 {
   font-size: 1.8em;
-  line-height: calc(1ex / 0.37);
-  margin: calc(1ex / 0.37) 0 1ex 0;
+  /* line-height: calc(1ex / 0.37);
+  margin: calc(1ex / 0.37) 0 1ex 0; */
 }
 h3 {
   font-size: 1.3em;
-  line-height: calc(1ex / 0.32);
-  margin: calc(1ex / 0.32) 0 1ex 0;
+  /* line-height: calc(1ex / 0.32);
+  margin: calc(1ex / 0.32) 0 1ex 0; */
 }
 h4 {
   font-size: 1.15em;
-  line-height: calc(1ex / 0.28);
-  margin: calc(1ex / 0.28) 0 1ex 0;
+  /* line-height: calc(1ex / 0.28);
+  margin: calc(1ex / 0.28) 0 1ex 0; */
 }
 
 
@@ -313,7 +284,29 @@ p + ul {
 }
 
 
+/* Container for logo and postlist sections */
+.index-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-section img {
+  max-width: 100%;
+  /* min-width: 300px; */
+  /* margin: var(--spacing); */
+}
+
 section.postlist {
+  max-width: var(--max-readable-column-width);
+
   ol {
     padding: 0;
     margin: 0;
@@ -334,30 +327,14 @@ section.postlist {
 }
 
 
-@media only screen and (min-width: 1000px)  {
-  .postlist {
+@media only screen and (min-width: 1100px)  {
+  .index-container {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-m);
+  }
 
-    li {
-      display: flex;
-      align-items: center;  
-
-      time {
-        display: inline-block;
-        text-align: right;
-        width: 19ch;
-        margin: 0 0 0 -19ch;
-        padding-right: 1ch;
-  
-        &:after {
-          content: ' ·';
-        }  
-      }
-      
-      a {
-        /* I had to add a max width for the a element because it was becoming wider than its container */
-        max-width: calc(var(--max-readable-column-width) - calc(2 * var(--spacing)));
-      }
-    }
-
-  }  
+  .logo-section {
+    flex-shrink: 0;
+  }
 }
