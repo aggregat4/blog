@@ -25,7 +25,7 @@
       {% include "_input/css/all.css" %}
     {% endset %}
   <style>
-    {{ css | lightningcss | safe }}
+    {{ css | safe }}
   </style>
   </head>
   <body class="{% if page.fileSlug %}page-other{% else %}index{% endif %}">

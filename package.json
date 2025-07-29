@@ -12,16 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "2.0.1",
-    "browserslist": "4.23.3",
-    "lightningcss": "1.26.0",
+    "@11ty/eleventy": "3.1.2",
+    "browserslist": "4.25.1",
     "toml": "3.0.0"
-  },
-  "browserlist": [
-    "last 12 Chrome versions",
-    "last 12 Firefox versions",
-    "last 12 Edge versions",
-    "Safari >= 15",
-    "Firefox ESR"
-  ]
+  }
 }
