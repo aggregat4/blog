@@ -20,10 +20,352 @@
     <link rel="apple-touch-icon" href="/favicon.png">
     
   <style>
-    @font-face{font-display:swap;font-family:EB Garamond;font-style:normal;font-weight:400;src:local(""),url(/fonts/eb-garamond-v25-latin-regular.woff2)format("woff2");font-display:swap}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:400;src:local(""),url(/fonts/merriweather-v31-latin-regular.woff2)format("woff2");font-display:swap}*,:before,:after{box-sizing:border-box}html{-moz-text-size-adjust:none;text-size-adjust:none}body,h1,h2,h3,h4,p,figure,blockquote,dl,dd{margin:0}body{min-height:100vh;font-family:Merriweather,serif;font-size:18px;font-weight:500;line-height:1.55}h1,h2,h3,h4,button,input,label{line-height:1.1}h1,h2,h3,h4{text-wrap:balance}a:not([class]){text-decoration-skip-ink:auto}img,picture{max-width:100%;display:block}input,button,textarea,select{font:inherit}textarea:not([rows]){min-height:10em}:target{scroll-margin-block:5ex}:root{--spacing-xs:8px;--spacing-s:12px;--spacing:24px;--spacing-m:36px;--pompeian-red:#a22e37;--olympic-blue:#247291;--olympic-blue-intensive:#154457;--aconite-violet:#85608e;--aconite-violet-dark:#492552;--neutral-gray:#b5d1cc;--color-gainsboro:#dcdcdc;--color-code-bg:#f5f2f0;--max-readable-column-width:75ch;--link-color:var(--olympic-blue-intensive);--visited-link-color:var(--olympic-blue-intensive)}::selection{background:var(--olympic-blue);color:#fff}header{max-width:var(--max-readable-column-width);justify-content:center;align-items:center;margin:auto;display:flex}footer{margin:auto;margin-bottom:var(--spacing);justify-content:center;font-size:21px;display:flex}main{max-width:var(--max-readable-column-width);padding:0 var(--spacing)var(--spacing)var(--spacing);margin:auto}nav{text-transform:uppercase;margin:var(--spacing);border:1px solid #333;border-radius:3px;font-family:sans-serif;font-weight:400;box-shadow:2px 2px 3px #bbb}nav ol{flex-wrap:wrap;justify-content:center;align-items:center;margin:0;padding:0;display:flex}nav ol li{margin:var(--spacing-s);list-style-type:none}nav ol li svg{width:30px}nav ol a{display:flex}nav ol a,nav ol a:visited{color:#000;text-decoration:none}a{color:var(--link-color)}a:visited{color:var(--visited-link-color)}h1,h2,h3,h4,h5,h6{font-family:EB Garamond,serif;font-weight:400}h1{margin:2.38095ex 0 1ex;font-size:2em;line-height:2.38095ex}h2{margin:2.7027ex 0 1ex;font-size:1.8em;line-height:2.7027ex}h3{margin:3.125ex 0 1ex;font-size:1.3em;line-height:3.125ex}h4{margin:3.57143ex 0 1ex;font-size:1.15em;line-height:3.57143ex}.cover{text-align:center;margin-bottom:var(--spacing);border:1px solid #000;line-height:400%}.cover h1{word-wrap:break-all;border:none;font-size:3.5em}.cover h1,.cover h2{letter-spacing:12px}article p,article pre,article ul,article ol,article blockquote{margin:var(--spacing)0 0 0}article code{background-color:var(--color-code-bg);padding:0 4px}article .postdate{text-align:left;margin:0;font-family:monospace;display:block}article time{font-size:12px;font-style:italic}article pre,article code{border-radius:3px;font-family:monospace;font-size:18px}article pre{padding:var(--spacing-s);background-color:var(--color-code-bg);overflow:auto hidden}article blockquote{padding:var(--spacing-s);border-left:2px solid var(--olympic-blue);background-color:var(--color-code-bg);margin-left:calc(-1*var(--spacing-s) - 2px);font-style:italic}article blockquote p:first-of-type{margin:0}article p:first-of-type,h1+p,h2+p,h3+p,h4+p,p+ul{margin-top:var(--spacing-s)}section.postlist ol{margin:0;margin-top:var(--spacing-s);padding:0}section.postlist ol time{font-family:monospace;font-size:12px;line-height:1;display:block}section.postlist ol li{margin-bottom:var(--spacing-s);list-style-type:none}@media only screen and (min-width:1000px){.postlist li{align-items:center;display:flex}.postlist li time{text-align:right;width:19ch;margin:0 0 0 -19ch;padding-right:1ch;display:inline-block}.postlist li time:after{content:" ·"}.postlist li a{max-width:calc(var(--max-readable-column-width) - calc(2*var(--spacing)))}}
+    
+      /********** reset from https://andy-bell.co.uk/a-more-modern-css-reset/ **********/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.55;
+  font-size: 18px;
+  font-family: system-ui, sans-serif;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/********** end reset **********/
+
+
+:root {
+  --spacing-xs: 8px;
+  --spacing-s: 12px;
+  --spacing: 24px;
+  --spacing-m: 36px;
+  /* Color scheme 324, page 233 from A Dictionary of Color Combinations */
+  --pompeian-red: rgb(162, 46, 55);
+  --olympic-blue: #247291;
+  --olympic-blue-intensive: #154457;
+  --aconite-violet: #85608e;
+  --aconite-violet-dark: #492552;
+  --neutral-gray: #B5D1CC;
+  --color-gainsboro: #DCDCDC;
+  --color-code-bg: #f5f2f0;
+
+  --max-readable-column-width: 75ch;
+
+  --link-color: var(--olympic-blue-intensive);
+  /* --visited-link-color: var(--aconite-violet-dark); */
+  --visited-link-color: var(--olympic-blue-intensive);
+}
+
+/* TODO: dark theme */
+@media (prefers-color-scheme: dark) {
+}
+
+::selection {
+  background: var(--olympic-blue);
+  color: white;
+}
+
+header {
+  /* margin: auto; */
+  /* max-width: var(--max-readable-column-width); */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+footer {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  font-size: 21px;
+  margin-bottom: var(--spacing);
+}
+
+main {
+  margin: auto;
+  padding: 0 var(--spacing) var(--spacing) var(--spacing);
+}
+
+body.page-other main {
+  max-width: var(--max-readable-column-width);
+}
+
+nav {
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: var(--spacing);
+  border-radius: 3px;
+  border: 1px #333333 solid;
+  box-shadow: 2px 2px 3px 0 #bbbbbb;
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      margin: var(--spacing-s);
+      list-style-type: none;
+
+      svg {
+        width: 30px;
+      }
+    }
+
+    a {
+      /* This is needed because anchor elements are inline by default and get strange heights dependending on what is in them.
+         Setting them to block helps but then the contents are not aligned.
+         Setting them to center in this case makes all the nav elements nicely vertically aligned. */
+      display: flex;
+    }
+
+    a, a:visited {
+      color: black;
+      text-decoration: none;
+    }
+  }
+}
+
+
+a {
+  color: var(--link-color);
+
+  &:visited {
+    color: var(--visited-link-color);
+  }
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  margin: 1.6ex 0 1ex 0;
+}
+h1 {
+  font-size: 2em;
+  /* line-height: calc(1ex / 0.42);
+  margin: calc(1ex / 0.42) 0 1ex 0; */
+}
+h2 {
+  font-size: 1.8em;
+  /* line-height: calc(1ex / 0.37);
+  margin: calc(1ex / 0.37) 0 1ex 0; */
+}
+h3 {
+  font-size: 1.3em;
+  /* line-height: calc(1ex / 0.32);
+  margin: calc(1ex / 0.32) 0 1ex 0; */
+}
+h4 {
+  font-size: 1.15em;
+  /* line-height: calc(1ex / 0.28);
+  margin: calc(1ex / 0.28) 0 1ex 0; */
+}
+
+
+.cover {
+  text-align: center;
+  line-height: 400%;
+  border: 1px solid black;
+  margin-bottom: var(--spacing);
+  
+  h1 {
+    border: none;
+    word-wrap: break-all;
+    font-size: 3.5em;
+  }
+
+  h1, h2 {
+    letter-spacing: 12px;
+  }  
+}
+
+
+article {
+  p, pre, ul, ol, blockquote {
+    /* margin: calc(1ex / 0.42) 0 0 0; */
+    margin: var(--spacing) 0 0 0;
+  }
+
+  code {
+    background-color: var(--color-code-bg);
+    padding: 0 4px;
+  }
+  
+  .postdate {
+    display: block;
+    text-align: left;
+    margin: 0;
+    font-family: monospace;
+  }
+
+  time {
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  pre, code {
+    font-family: monospace;
+    font-size: 18px;
+    border-radius: 3px;
+  }
+  
+  pre {
+    padding: var(--spacing-s);
+    background-color: var(--color-code-bg);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+
+  blockquote {
+    padding: var(--spacing-s);
+    border-left: 2px solid var(--olympic-blue);
+    background-color: var(--color-code-bg);
+    font-style: italic;
+    margin-left: calc(-1 * var(--spacing-s) - 2px);
+
+    p:first-of-type {
+      margin: 0;
+    }
+  }
+}
+
+article p:first-of-type,
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+p + ul {
+  margin-top: var(--spacing-s);
+}
+
+
+/* Container for logo and postlist sections */
+.index-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-section img {
+  max-width: 100%;
+  /* min-width: 300px; */
+  /* margin: var(--spacing); */
+}
+
+section.postlist {
+  max-width: var(--max-readable-column-width);
+
+  ol {
+    padding: 0;
+    margin: 0;
+    margin-top: var(--spacing-s);
+
+    time {
+      display: block;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    li {
+      margin-bottom: var(--spacing-s);
+      list-style-type: none;
+    }  
+  } 
+}
+
+
+@media only screen and (min-width: 1100px)  {
+  .index-container {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-m);
+  }
+
+  .logo-section {
+    flex-shrink: 0;
+  }
+}
+
+    
   </style>
   </head>
-  <body>
+  <body class="page-other">
     <header>
       <nav>
         <ol>
