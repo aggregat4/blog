@@ -5,7 +5,10 @@ tags: post
 <article>
 <h1>{{ title }}</h1>
 
-<time datetime="{{ date | isodate }}">{{ date | isodate }}</time>
+<p class="byline">
+  By <span class="author" itemprop="author">{{ author or "Boris Terzic" }}</span>
+  on <time datetime="{{ date | isodate }}" itemprop="datePublished">{{ date | isodate }}</time>
+</p>
 
 {{ content | safe }}
 
