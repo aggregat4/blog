@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Automatically Formatting Comments With Prettier is Really Nice">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2022-02-16-auto-formatting-comments-is-so-nice/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Automatically Formatting Comments With Prettier is Really Nice</h1>
 
-<time datetime="2022-02-16">2022-02-16</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2022-02-16" itemprop="datePublished">2022-02-16</time>
+</p>
 
 <p>Many IDEs and editors still do not attempt to format multi-line comments. Possibly due to fear of messing up hand-crafted formatting or because it is just really hard to do right.</p>
 <p>I’ve always found this frustrating in my own projects, specifically in the mostly TypeScript codebase of <a href="https://github.com/aggregat4/dendriform">Dendriform</a> that I have been working on lately.</p>

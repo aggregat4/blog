@@ -124,7 +124,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +151,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +263,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +377,10 @@ section.postlist {
       <article>
 <h1>Go Struct Embedding</h1>
 
-<time datetime="2024-12-13">2024-12-13</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2024-12-13" itemprop="datePublished">2024-12-13</time>
+</p>
 
 <p>Today I learned that Go has something called struct embedding. I come from a mostly Java background and an AI code assistant suggested a struct that had a field in it that had no type. It looked a bit like this:</p>
 <pre><code class="language-go">type Base struct {

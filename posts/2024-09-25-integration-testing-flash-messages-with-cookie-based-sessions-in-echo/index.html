@@ -124,7 +124,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +151,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +263,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +377,10 @@ section.postlist {
       <article>
 <h1>Integration Testing Flash Messages with Cookie-Based Sessions in Echo</h1>
 
-<time datetime="2024-09-25">2024-09-25</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2024-09-25" itemprop="datePublished">2024-09-25</time>
+</p>
 
 <p>One approach to implemented error and success messages (or “toasts”) in web applications is to use flash messages. Flash messages are stored in the session, displayed on the next request and then removed from the session.</p>
 <p>In my case my sessions were stored in a cookie and the application was built with the go Echo web framework.</p>

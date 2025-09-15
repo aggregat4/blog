@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="But wait, there&#39;s more! (to consider about the ForkJoinPool and parallel streams)">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2015-04-16-further-forkjoinpool-and-parallel-stream-issues/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>But wait, there&#39;s more! (to consider about the ForkJoinPool and parallel streams)</h1>
 
-<time datetime="2015-04-16">2015-04-16</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2015-04-16" itemprop="datePublished">2015-04-16</time>
+</p>
 
 <p>I <a href="/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/">wrote earlier</a> about the problems with using a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html"><code>ForkJoinPool</code></a> explicitly, or implicitly through parallel streams, together with a SecurityManager. There are even more caveats with the way the <code>ForkJoinPool</code> is used by the parallel streams implementation and with the model of concurrency implemented by it.</p>
 <p>The first issue with parallel streams is that they use a static, JVM-wide instance of a <code>ForkJoinPool</code>, called the <code>commonPool</code>. Implicitly using this opaque shared pool, you lose a lot of visibility into and control over important pool parameters that may be crucial to attaining high performance. Oleg Shelajev of Zeroturnaround <a href="http://zeroturnaround.com/rebellabs/java-parallel-streams-are-bad-for-your-health/">writes</a> about some of the congestion and management issues you can run into.</p>

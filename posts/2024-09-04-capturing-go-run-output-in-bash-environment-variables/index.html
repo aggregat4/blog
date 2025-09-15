@@ -124,7 +124,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +151,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +263,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +377,10 @@ section.postlist {
       <article>
 <h1>Capturing Go Run Output in Bash Environment Variables</h1>
 
-<time datetime="2024-09-04">2024-09-04</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2024-09-04" itemprop="datePublished">2024-09-04</time>
+</p>
 
 <p>When creating test scripts for Go applications, it is often necessary to capture the output of <code>go run</code> in bash environment variables. This is particularly useful when the output contains information that needs to be used in subsequent commands or when the output is a success or error message that needs to be checked.</p>
 <p>Doing a simple</p>

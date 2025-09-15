@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Shadow DOM Can Force You to Think About Encapsulation">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-02-26-shadow-dom-forces-encapsulation/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Shadow DOM Can Force You to Think About Encapsulation</h1>
 
-<time datetime="2020-02-26">2020-02-26</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2020-02-26" itemprop="datePublished">2020-02-26</time>
+</p>
 
 <p>Having moved to shadow dom for my custom elements in <a href="https://github.com/aggregat4/dendriform">dendriform</a> I find that it forces me to think about encapsulation much more than before and refactoring my components to more cleanly separate responsibilities. That’s a benefit.</p>
 

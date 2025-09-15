@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="TypeScript Can Surprisingly Elide Imports">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-02-09-blogpost-typescript-elides-imports/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>TypeScript Can Surprisingly Elide Imports</h1>
 
-<time datetime="2020-02-09">2020-02-09</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2020-02-09" itemprop="datePublished">2020-02-09</time>
+</p>
 
 <p>In <a href="TODO">dendriform</a> I had the problem that my custom elements were not being registered in the registry and I was getting runtime errors because of it.</p>
 <p>The necessary <code>customElements.define()</code> calls were all present, so there was something else going on. Turns out that TypeScript can elide imports if it determines that it is not being used by anything. This can happen when your custom element resides completely in its own module and you import it on the usage side but then only use it inside of your templates declaratively. TypeScript has no way of identifiying this usage (since it will be inside of some template string or JSX) and it will silently drop the import because it is “unused”. This behaviour is <a href="https://github.com/Microsoft/TypeScript/wiki/FAQ#why-are-imports-being-elided-in-my-emit">documented in the FAQ</a>.</p>

@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="There is Always More to Learn">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2015-05-26-there-is-always-more-to-learn/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>There is Always More to Learn</h1>
 
-<time datetime="2015-05-26">2015-05-26</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2015-05-26" itemprop="datePublished">2015-05-26</time>
+</p>
 
 <p>Wanting to change up my list of podcasts (<a href="http://atp.fm">Accidental Tech Podcast</a>, <a href="http://alternativlos.org/">Alternativlos</a>, <a href="http://5by5.tv/b2w">Back to Work</a>, <a href="http://www.coreint.org/">Core Intuition</a>, <a href="http://www.coreint.org/">CRE: Technik, Kultur, Gesellschaft</a>, <a href="http://developingperspective.com/">Developing Perspective</a>, <a href="http://fragmentedpodcast.com/">Fragmented</a>, <a href="http://fragmentedpodcast.com/">Hello Internet</a>, <a href="http://techdistortion.com/podcasts/pragmatic">Pragmatic</a>, <a href="http://raumzeit-podcast.de/">Raumzeit</a>, <a href="https://www.theincomparable.com/robot/">Robot or Not?</a>, <a href="http://www.merlinmann.com/roderick/">Roderick on the Line</a>, <a href="http://www.se-radio.net/">Software Engineering Radio</a>, <a href="http://www.flophousepodcast.com/">The Flop House</a>, <a href="https://www.theincomparable.com/theincomparable/">The Incomparable</a>, <a href="https://daringfireball.net/thetalkshow/">The Talk Show With John Gruber</a>, <a href="http://www.relay.fm/upgrade">Upgrade</a>, <a href="http://www.macintosh.fm/">Welcome to Macintosh</a>, <a href="http://youlooknicetoday.com/">You Look Nice Today</a>) a bit, I went on the lookout for something not Apple-related but still developer centric. I stumbled upon the <a href="http://fragmentedpodcast.com/">Fragmented podcast</a> and have been continuously surprised at the amount and kind of things I learn from it. Notwithstanding reading the internet every day, this podcast managed to broaden my horizon: introduced new interesting people to read on the internet, discussed developing practices I either wasn’t (<a href="https://github.com/google/auto/tree/master/value">AutoValue</a>) or only tangentially (<a href="https://github.com/ReactiveX/RxJava">RxJava</a>) aware of. It was a good example of the fact that every sizable community will have interesting things to learn that you don’t already know about.</p>
 

@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Using Custom Elements With Declarative Templates">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-02-06-blogpost-custom-elements-declarative-templates/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Using Custom Elements With Declarative Templates</h1>
 
-<time datetime="2020-02-06">2020-02-06</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2020-02-06" itemprop="datePublished">2020-02-06</time>
+</p>
 
 <p>When you use declarative templates like lit-html or JSX or any other variant together with custom elements you will need to declare and use your custom elements as HTML tags. Since you can’t construct your components with a non-default constructor you need to employ a different strategy for configuring them:</p>
 <ul>

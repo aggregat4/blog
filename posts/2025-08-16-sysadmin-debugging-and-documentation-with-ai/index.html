@@ -124,7 +124,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +151,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +263,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +377,10 @@ section.postlist {
       <article>
 <h1>Debugging and Documenting Sysadmin Tasks With AI</h1>
 
-<time datetime="2025-08-16">2025-08-16</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2025-08-16" itemprop="datePublished">2025-08-16</time>
+</p>
 
 <p>Chatbot-style AI systems like ChatGPT or Anthropic Claude’s web UIs are very helpful for debugging and documenting computer hardware and software issues. I use this approach both at home and at work to debug Linux-related issues on my machines and network.</p>
 <p>My general approach is to identify a problem or new feature I want to implement in my tools or environment and then document it in a “sysadmin log”. This helps me remember what I did, serves as a list of things to do on new systems and it can be a good source for blog material.</p>

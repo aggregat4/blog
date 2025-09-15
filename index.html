@@ -6,8 +6,8 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="All Posts on Apparat">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
+    <meta name="description" content="Personal website for Boris Terzic">
+    <meta property="og:description" content="Personal website for Boris Terzic">
     
     
     <meta property="og:url" content="https://blog.boristerzic.com/">
@@ -124,7 +124,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +151,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +263,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {

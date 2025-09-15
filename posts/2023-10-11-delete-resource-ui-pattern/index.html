@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="A Useful Inline Delete/Confirm UI Pattern">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2023-10-11-delete-resource-ui-pattern/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>A Useful Inline Delete/Confirm UI Pattern</h1>
 
-<time datetime="2023-10-11">2023-10-11</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2023-10-11" itemprop="datePublished">2023-10-11</time>
+</p>
 
 <p>For my <a href="https://github.com/aggregat4/delicious-bookmarks">personal bookmark service</a> I had to implement the ability to delete bookmarks. I wanted this operation to be easily accessible directly in the list of bookmarks:</p>
 <p><img src="/images/screenshot-delicious.png" alt="Screenshot of an example bookmark with a delete button."></p>

@@ -124,7 +124,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +151,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +263,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +377,10 @@ section.postlist {
       <article>
 <h1>Experiences With AI-Assisted Coding</h1>
 
-<time datetime="2025-03-23">2025-03-23</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2025-03-23" itemprop="datePublished">2025-03-23</time>
+</p>
 
 <p>I’ve been using Cursor’s AI code assistant for a while now and here are my experiences with it: things that worked well, things that definitely didn’t and some assorted observations.</p>
 <h2>The Good</h2>

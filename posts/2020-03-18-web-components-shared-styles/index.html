@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Shared Styles for Web Components Are Unsolved">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-03-18-web-components-shared-styles/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Shared Styles for Web Components Are Unsolved</h1>
 
-<time datetime="2020-03-18">2020-03-18</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2020-03-18" itemprop="datePublished">2020-03-18</time>
+</p>
 
 <p>It seems like common shared styles for web components are not completely solved yet. There is a cavalcade of sort of maybe options with <a href="https://www.smashingmagazine.com/2016/12/styling-web-components-using-a-shared-style-sheet/">a good overview on Smashing Magazine</a>.</p>
 <p>The two “best” options at the moment seem to be the inclusion of a <code>&lt;link&gt;</code> element before the inline styles for the web component that points to a shared stylesheet or to actually inline all the shared styles together with the specific styles.</p>

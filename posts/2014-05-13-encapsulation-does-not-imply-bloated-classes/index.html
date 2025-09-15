@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Encapsulation does not imply bloated classes">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2014-05-13-encapsulation-does-not-imply-bloated-classes/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Encapsulation does not imply bloated classes</h1>
 
-<time datetime="2014-05-13">2014-05-13</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2014-05-13" itemprop="datePublished">2014-05-13</time>
+</p>
 
 <p>In an <a href="http://debasishg.blogspot.de/2014/05/functional-patterns-in-domain-modeling.html">interesting discussion of anemic models, DDD and functional domain modeling</a> Debasish Gosh links to <a href="http://www.drdobbs.com/cpp/how-non-member-functions-improve-encapsu/184401197">an article by Scott Meyer</a> (of Effective C++ fame) from 2000 that convincingly argues against bloated OO modeling. The goal should not be to pack all possible functionality related to the class on that class itself. Instead he argues that having more than the essential methods on a class actually <em>decreases</em> encapsulation since you are increasing the amount of functionality that breaks when internal details to your class change.</p>
 <p>To paraphrase: everything that can be implemented using the public API of your class should be outside the class. Obviously design is never black or white like this, and he acknowledges that, but it is a realistic and non-typical take on encapsulation that is worth discussing.</p>

@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="You Can Reach the Child Elements of a Custom Element Even Inside Shadow DOM">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-02-28-reaching-inside-custom-element-inside-shadowr-dom/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>You Can Reach the Child Elements of a Custom Element Even Inside Shadow DOM</h1>
 
-<time datetime="2020-02-28">2020-02-28</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2020-02-28" itemprop="datePublished">2020-02-28</time>
+</p>
 
 <p>You can reach the child elements inside a custom element using shadow DOM by getting the respective <code>slot</code> element and then calling <code>asssignedNodes()</code> on it.</p>
 

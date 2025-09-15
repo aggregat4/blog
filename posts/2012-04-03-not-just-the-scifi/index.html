@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Anyway, it&#39;s not just the sci-fi">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2012-04-03-not-just-the-scifi/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Anyway, it&#39;s not just the sci-fi</h1>
 
-<time datetime="2012-04-03">2012-04-03</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2012-04-03" itemprop="datePublished">2012-04-03</time>
+</p>
 
 <blockquote>
 <p>“Anyway. It’s not just sci-fi. I’m also depressed about the lack of future in fashion. Every hep shop seems to be full of tweeds and leather and carefully authentic bits of restrained artisanal fashion. I think most of Shoreditch would be wondering around in a leather apron if it could. With pipe and beard and rickets. Every new coffee shop and organic foodery seems to be the same. Wood, brushed metal, bits of knackered toys on shelves. And blackboards. Everywhere there’s blackboards.”</p>

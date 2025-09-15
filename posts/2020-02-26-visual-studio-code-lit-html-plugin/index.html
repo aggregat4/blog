@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="The Visual Studio Code lit-html Plugin is Very Helpful">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-02-26-visual-studio-code-lit-html-plugin/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>The Visual Studio Code lit-html Plugin is Very Helpful</h1>
 
-<time datetime="2020-02-26">2020-02-26</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2020-02-26" itemprop="datePublished">2020-02-26</time>
+</p>
 
 <p>I installed the <a href="https://marketplace.visualstudio.com/items?itemName=bierner.lit-html">lit-html visual studio code plugin</a> that offers CSS and HTML syntax highlighting inside of lit-html templates. Very helpful.</p>
 

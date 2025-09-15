@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2015-04-14-caution-advised-when-using-the-java-forkjoinpool-or-parallel-streams-with-a-securityManager/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Caution advised when using the Java ForkJoinPool or parallel streams with a SecurityManager</h1>
 
-<time datetime="2015-04-14">2015-04-14</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2015-04-14" itemprop="datePublished">2015-04-14</time>
+</p>
 
 <p>In Java 7 the <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html">fork/join framework</a> was introduced as an additional tool in the concurrency toolbox. It can be used to conveniently solve problems that lend themselves to easy subdivision, in a parallell fashion without having to worry about any concurrency mechanics.\n<br>
 Aside from being a convenient user facing feature, this framework has also become the basis for other JDK implementations that require such a parallellization approach. Features like <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html"><code>Arrays.parallelSort()</code></a> and <a href="https://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html">parallel streams</a>. And there lies the rub.</p>

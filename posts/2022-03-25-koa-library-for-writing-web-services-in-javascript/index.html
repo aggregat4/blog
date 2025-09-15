@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Koa Implements a Nice Pattern For Writing Web Services">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2022-03-25-koa-library-for-writing-web-services-in-javascript/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Koa Implements a Nice Pattern For Writing Web Services</h1>
 
-<time datetime="2022-03-20">2022-03-20</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2022-03-20" itemprop="datePublished">2022-03-20</time>
+</p>
 
 <p>For <a href="https://github.com/aggregat4/dendriform">Dendriform</a> I needed a small library or framework to implement a JavaScript (or TypeScript) test server that I could use for running integration tests against. I needed basic HTTP protocol support, the ability to serve static content, define custom routes based on URL, HTTP method and Accept-Header.</p>
 <p>The goto for backend JavaScript has long been <a href="https://expressjs.com/">Express</a> and it is presumably still a good choice. I noticed some complaints of Express not having out of the box async support. Looking around further it was surprisingly hard to identify a viable and popular candidate that was lightweight enough for my purposes.</p>

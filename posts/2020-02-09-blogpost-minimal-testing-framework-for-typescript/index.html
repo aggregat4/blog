@@ -6,9 +6,6 @@
     <meta name="author" content="Boris Terzic">
     <meta property="og:title" content="Reducing Dependencies With an Absolutely Minimal Testing Framework">
     
-    <meta name="description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    <meta property="og:description" content="Personal website for Boris Terzic with blog posts on programming and technology">
-    
     
     <meta property="og:url" content="https://blog.boristerzic.com/posts/2020-02-09-blogpost-minimal-testing-framework-for-typescript/">
     
@@ -124,7 +121,6 @@ textarea:not([rows]) {
 }
 
 header {
-  /* margin: auto; */
   /* max-width: var(--max-readable-column-width); */
   display: flex;
   justify-content: left;
@@ -152,6 +148,7 @@ body.page-other main {
 }
 
 nav {
+  margin: auto;
   text-transform: uppercase;
   font-weight: 400;
   margin: var(--spacing);
@@ -263,9 +260,8 @@ article {
     font-family: monospace;
   }
 
-  time {
+  .byline {
     font-style: italic;
-    font-size: 12px;
   }
 
   pre, code {
@@ -378,7 +374,10 @@ section.postlist {
       <article>
 <h1>Reducing Dependencies With an Absolutely Minimal Testing Framework</h1>
 
-<time datetime="2020-02-09">2020-02-09</time>
+<p class="byline">
+  By <span class="author" itemprop="author">Boris Terzic</span>
+  on <time datetime="2020-02-09" itemprop="datePublished">2020-02-09</time>
+</p>
 
 <p>Inspired by <a href="https://github.com/volument/baretest/blob/master/baretest.js">Baretest</a> I wanted to move my testing setup from jest to something similarly minimal. Baretest is less than 100 lines of very understandable JavaScript code and a bunch of that is even concerned with color highlighting!</p>
 <p>We use jest at work and it works fine, but it is an enormous framework with many dependencies. In my personal project it was the last thing holding me back from removing babel as a dependency. Baretest’s incredible simplicity motivated me to try to replace jest with something similar.</p>
